@@ -24,8 +24,8 @@ export default function App() {
           <span>AI ENABLEMENT LAB</span>
         </button>
         <nav aria-label="Primary navigation">
-          <button type="button" onClick={() => go('challenge')}>Challenge</button>
-          <button type="button" onClick={() => go('work')}>Work</button>
+          <button type="button" onClick={() => go('challenge')}>The Challenge</button>
+          <button type="button" onClick={() => go('work')}>Proof</button>
           <button type="button" onClick={() => go('about')}>About</button>
           <a className="nav-cta" href="mailto:caramos0918@gmail.com">Connect</a>
         </nav>
@@ -36,12 +36,12 @@ export default function App() {
           <section className="home-view screen-enter" aria-labelledby="home-heading">
             <div className="hero-copy">
               <div className="eyebrow">CESAR RAMOS — AI ENABLEMENT LAB</div>
-              <p className="hero-kicker">AI doesn’t fail because people can’t use it.</p>
-              <h1 id="home-heading">It fails when work doesn’t change.</h1>
-              <p className="hero-subhead">I design the experience that changes that.</p>
+              <p className="hero-kicker">AI enablement is a behavior-change problem.</p>
+              <h1 id="home-heading">Don’t read my portfolio.</h1>
+              <p className="hero-subhead">Find the friction. Build the solution. Make adoption stick.</p>
               <p className="hero-statement">{site.statement}</p>
               <div className="hero-actions">
-                <button className="button primary hero-primary" type="button" onClick={() => go('challenge')}>PROVE IT <span aria-hidden="true">→</span></button>
+                <button className="button primary hero-primary" type="button" onClick={() => go('challenge')}>START THE 3-MINUTE CHALLENGE <span aria-hidden="true">→</span></button>
                 <button className="button text-button" type="button" onClick={() => go('work')}>EXPLORE THE WORK</button>
               </div>
               <div className="proof-rail" aria-label="Selected proof">
@@ -51,7 +51,7 @@ export default function App() {
               </div>
             </div>
 
-            <div className="hero-visual" aria-label="Cesar Ramos, AI Enablement and Learning Experience Strategist">
+            <div className="hero-visual" aria-label="A mission path representing Cesar's AI enablement method">
               <div className="portrait-halo" />
               <div className="portrait-frame">
                 <img src={headshot} alt="Professional headshot of Cesar Ramos" />
@@ -62,7 +62,7 @@ export default function App() {
             </div>
 
             <div className="method-ticker" aria-label="Cesar's enablement method">
-              {method.map((item, index) => <span key={item}>{item}{index < method.length - 1 && <b>→</b>}</span>)}
+              {method.slice(0, 4).map((item, index) => <span key={item}>{String(index + 1).padStart(2, '0')} &nbsp; {item}{index < 3 && <b>→</b>}</span>)}
             </div>
           </section>
         )}
@@ -85,9 +85,7 @@ export default function App() {
           </section>
         )}
 
-        {selectedCase && (
-          <CaseDetail study={selectedCase} onBack={() => go('work')} />
-        )}
+        {selectedCase && <CaseDetail study={selectedCase} onBack={() => go('work')} />}
 
         {view === 'about' && (
           <section className="about-view screen-enter" aria-labelledby="about-heading">
