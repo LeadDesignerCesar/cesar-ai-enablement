@@ -13,6 +13,7 @@ import './styles/case-progressive.css'
 import './styles/interactive-proof.css'
 import './styles/about.css'
 import './styles/navigation.css'
+import './styles/score.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
