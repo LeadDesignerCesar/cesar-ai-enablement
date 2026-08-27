@@ -25,7 +25,7 @@ export default function ChallengeLab({ onSeeWork, onExit }: { onSeeWork: () => v
         </div>
       </div>
 
-      <div className="challenge-layout">
+      <div className={`challenge-layout ${step === 5 ? 'results-layout' : ''}`}>
         <div className="challenge-main">
           {step === 1 && <Stage number="01" eyebrow="FIND THE FRICTION" title="What is getting in the way of performance?">
             <ChoiceGrid options={Object.keys(challenge.friction.options)} selected={friction} onSelect={(v) => setFriction(v as Friction)} />
@@ -34,43 +34,45 @@ export default function ChallengeLab({ onSeeWork, onExit }: { onSeeWork: () => v
             <Continue disabled={!friction || !audience} onClick={() => setStep(2)} />
           </Stage>}
 
-          {step === 2 && <Stage number="02" eyebrow="BUILD THE FIX" title="What removes the friction without adding another step?">
+          {step === 2 && <Stage number="02" eyebrow="BUILD THE FIX" title="What kind of support removes the friction?">
             <div className="big-principle">AI SHOULD REMOVE FRICTION.<br/><em>NOT ADD ANOTHER STEP.</em></div>
-            <ChoiceGrid options={[...challenge.solution.options]} selected={solution} onSelect={(v) => setSolution(v as Solution)} />
+            <ChoiceGrid forceTwoByTwo options={[...challenge.solution.options]} selected={solution} onSelect={(v) => setSolution(v as Solution)} />
             {friction && solution && <Feedback><strong>{friction} + {solution}</strong> — {solutionRecommendations[friction][solution]}</Feedback>}
             <Continue disabled={!solution} onClick={() => setStep(3)} />
           </Stage>}
 
-          {step === 3 && <Stage number="03" eyebrow="ENABLE THE PEOPLE" title="How will people get confident enough to actually use it?">
+          {step === 3 && <Stage number="03" eyebrow="ENABLE THE PEOPLE" title="How will people get confident enough to use it?">
             <div className="pattern-display"><span>SEE IT</span><b>→</b><span>TRY IT</span><b>→</b><span>USE IT AT WORK</span></div>
-            <ChoiceGrid options={[...challenge.enablement.options]} selected={adoption} onSelect={(v) => setAdoption(v as Adoption)} />
+            <ChoiceGrid forceTwoByTwo options={[...challenge.enablement.options]} selected={adoption} onSelect={(v) => setAdoption(v as Adoption)} />
             {adoption && <Feedback>{adoptionRecommendations[adoption]}</Feedback>}
             <Continue disabled={!adoption} onClick={() => setStep(4)} />
           </Stage>}
 
-          {step === 4 && <Stage number="04" eyebrow="PROVE THE IMPACT" title="What would convince you this actually worked?">
+          {step === 4 && <Stage number="04" eyebrow="PROVE THE IMPACT" title="What evidence would prove it worked?">
             <div className="impact-statement">COMPLETION <span>≠</span> IMPACT</div>
-            <ChoiceGrid options={[...challenge.impact.options]} selected={measure} onSelect={(v) => setMeasure(v as Measure)} />
+            <ChoiceGrid forceTwoByTwo options={[...challenge.impact.options]} selected={measure} onSelect={(v) => setMeasure(v as Measure)} />
             {measure && <div className="metric-preview">{challenge.impact.simulatedMetrics[measure].map((metric) => { const [value, ...rest] = metric.split(' '); return <div key={metric}><strong>{value}</strong><span>{rest.join(' ')}</span></div> })}</div>}
             <Continue label="BUILD MY BLUEPRINT" disabled={!measure} onClick={() => setStep(5)} />
           </Stage>}
 
-          {step === 5 && complete && <div className="result-view">
+          {step === 5 && complete && <div className="result-view result-card">
             <span className="result-kicker">YOUR ENABLEMENT BLUEPRINT</span>
-            <h1 id="challenge-heading">You just used my method.</h1>
-            <p className="result-lede">You didn’t read about AI enablement. You experienced it.</p>
+            <h1 id="challenge-heading">Here’s the plan you built.</h1>
+            <p className="result-lede">Four choices. One practical enablement approach.</p>
             <div className="blueprint-final">
-              <div><span>FRICTION</span><strong>{friction}</strong></div><b>→</b>
-              <div><span>SOLUTION</span><strong>{solution}</strong></div><b>→</b>
-              <div><span>ADOPTION</span><strong>{adoption}</strong></div><b>→</b>
-              <div><span>PROOF</span><strong>{measure}</strong></div>
+              <div><span>01 / FRICTION</span><strong>{friction}</strong></div>
+              <div><span>02 / SOLUTION</span><strong>{solution}</strong></div>
+              <div><span>03 / ADOPTION</span><strong>{adoption}</strong></div>
+              <div><span>04 / PROOF</span><strong>{measure}</strong></div>
             </div>
-            <p className="recommendation">{recommendation}</p>
-            <div className="result-actions"><button className="button primary" type="button" onClick={onSeeWork}>SEE WHAT I DID WITH IT →</button><button className="button ghost" type="button" onClick={reset}>TRY ANOTHER PATH</button></div>
+            <div className="result-recommendation"><span>RECOMMENDED APPROACH</span><p>{recommendation}</p></div>
+            <div className="result-reveal"><strong>Now see what this looks like when I build it for real.</strong><span>Representative demos are used to protect employer-specific branding and production interfaces.</span></div>
+            <div className="result-actions"><button className="button primary" type="button" onClick={onSeeWork}>SHOW ME THE WORK →</button><button className="button ghost" type="button" onClick={reset}>TRY ANOTHER PATH</button></div>
           </div>}
         </div>
 
         {step < 5 && <aside className="blueprint-live" aria-label="Live enablement blueprint">
+          <div className="blueprint-check">✓</div>
           <span>LIVE BLUEPRINT</span>
           <h2>Building your plan.</h2>
           <BlueprintRow label="Friction" value={friction} active={step === 1} />
@@ -85,7 +87,7 @@ export default function ChallengeLab({ onSeeWork, onExit }: { onSeeWork: () => v
 }
 
 function Stage({ number, eyebrow, title, children }: { number: string; eyebrow: string; title: string; children: ReactNode }) { return <div className="challenge-stage screen-enter"><div className="stage-number">{number}</div><div className="view-eyebrow">{eyebrow}</div><h1>{title}</h1>{children}</div> }
-function ChoiceGrid({ options, selected, onSelect, compact = false }: { options: string[]; selected: string | null; onSelect: (value: string) => void; compact?: boolean }) { return <div className={`choice-grid ${compact ? 'compact' : ''}`}>{options.map((option, index) => <button key={option} type="button" aria-pressed={selected === option} className={selected === option ? 'selected' : ''} onClick={() => onSelect(option)}><span>0{index + 1}</span><strong>{option}</strong><b>↗</b></button>)}</div> }
+function ChoiceGrid({ options, selected, onSelect, compact = false, forceTwoByTwo = false }: { options: string[]; selected: string | null; onSelect: (value: string) => void; compact?: boolean; forceTwoByTwo?: boolean }) { return <div className={`choice-grid ${compact ? 'compact' : ''} ${forceTwoByTwo ? 'two-by-two' : ''}`}>{options.map((option, index) => <button key={option} type="button" aria-pressed={selected === option} className={selected === option ? 'selected' : ''} onClick={() => onSelect(option)}><span>0{index + 1}</span><strong>{option}</strong><b>↗</b></button>)}</div> }
 function Feedback({ children }: { children: ReactNode }) { return <div className="feedback"><span>↳</span><p>{children}</p></div> }
 function Continue({ disabled, onClick, label = 'CONTINUE' }: { disabled: boolean; onClick: () => void; label?: string }) { return <button className="button primary continue" type="button" disabled={disabled} onClick={onClick}>{label} <span>→</span></button> }
 function BlueprintRow({ label, value, active }: { label: string; value: string | null; active: boolean }) { return <div className={`blueprint-row ${active ? 'active' : ''} ${value ? 'filled' : ''}`}><span>{label}</span><strong>{value ?? '—'}</strong></div> }
