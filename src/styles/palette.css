@@ -3,17 +3,20 @@
   --accent-primary:#1f5d4f;
   --accent-secondary:#9a6a16;
   --green:#1f5d4f;
+  --green-dark:#174a3f;
   --green-soft:#eaf2ee;
   --gold:#9a6a16;
+  --gold-dark:#7d5511;
   --gold-soft:#f7f0df;
 }
 
-/* Home: remove decorative route/flag and let the AI idea carry the emphasis. */
+/* Home: one forest green, one gold, no competing accent colors. */
 .mission-map{display:none!important}
-.hero-copy h1 .hero-accent{color:var(--green)}
+.hero-copy h1{color:var(--green)!important}
+.hero-copy h1 .hero-accent{color:var(--green)!important}
 .eyebrow,.view-eyebrow,.case-demo-copy>span,.result-kicker{color:var(--green)!important}
 .button.primary,.hero-primary{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important}
-.button.primary:hover,.hero-primary:hover{background:#174a3f!important;border-color:#174a3f!important}
+.button.primary:hover,.hero-primary:hover{background:var(--green-dark)!important;border-color:var(--green-dark)!important}
 .role-chip{background:#111318!important;color:#fff!important}
 .role-chip span{color:#e8e3d8!important}
 .method-ticker b{color:var(--gold)!important}
@@ -31,18 +34,47 @@
 /* Proof page gets its own clear invitation into the lab. */
 .view-work .work-view{padding-top:30px}
 .page-lab-cta{background:var(--gold)!important;border-color:var(--gold)!important;color:#fff!important;box-shadow:0 7px 18px rgba(154,106,22,.16)}
-.page-lab-cta:hover{background:#7d5511!important;border-color:#7d5511!important;color:#fff!important}
+.page-lab-cta:hover{background:var(--gold-dark)!important;border-color:var(--gold-dark)!important;color:#fff!important}
 
-/* About + navigation */
+/* Navigation: back and forward controls use the same forest-green system. */
+.page-back,.page-next{border-color:var(--green)!important}
+.page-back{background:#fffdfa!important;color:var(--green)!important}
+.page-next{background:var(--green)!important;color:#fff!important}
+.page-back:hover{border-color:var(--green-dark)!important;background:var(--green-soft)!important;color:var(--green-dark)!important}
+.page-next:hover{background:var(--green-dark)!important;border-color:var(--green-dark)!important;color:#fff!important}
+.page-next:disabled{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important;opacity:.28!important}
+
+/* Challenge: forest green = action/selection, gold = emphasis/progress. */
+.challenge-progress i.active{background:var(--gold)!important}
+.challenge-progress span{color:#686d74!important}
+.challenge-stage .view-eyebrow{color:var(--green)!important}
+.interaction-instruction span{color:var(--gold)!important}
+.choice-grid button{border-color:#d8d2c8!important;background:#fffdfa!important;color:#111318!important}
+.choice-grid button:hover{border-color:var(--green)!important;background:var(--green-soft)!important}
+.choice-grid button.selected{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important}
+.choice-grid button.selected>span,.choice-grid button.selected>b{color:var(--gold-soft)!important}
+.choice-grid button>span{color:#747980!important}
+.feedback{border-left-color:var(--gold)!important;background:var(--gold-soft)!important}
+.feedback>span{color:var(--gold)!important}
+.feedback p{color:#3f4449!important}
+.big-principle em{color:var(--gold)!important}
+.impact-statement span{color:var(--gold)!important}
+.pattern-display b,.branch-demo b{color:var(--gold)!important}
+.pattern-display span,.branch-demo span{border:1px solid rgba(31,93,79,.18)!important;background:var(--green-soft)!important;color:var(--green)!important}
+.metric-preview strong{color:var(--green)!important}
+.blueprint-live{border-color:#d8d2c8!important;background:#fffdfa!important}
+.blueprint-live>span,.blueprint-row.active span,.blueprint-row.filled strong{color:var(--green)!important}
+.blueprint-check{color:var(--green)!important;border-color:var(--green)!important}
+.blueprint-final>b{color:var(--gold)!important}
+.result-recommendation>span{color:var(--green)!important}
+
+/* About + score */
 .about-copy .view-eyebrow{color:var(--green)!important}
 .about-actions .button.primary{background:var(--green)!important;border-color:var(--green)!important}
-.page-back:hover{border-color:var(--green)!important;background:#f3f8f5!important}
-
-/* Score belongs to the same system. */
 .score-chip strong{color:var(--green)!important}
 
 @media(max-width:700px){
-  .hero-copy h1 .hero-accent{color:var(--green)}
+  .hero-copy h1,.hero-copy h1 .hero-accent{color:var(--green)!important}
 
   /* On a phone the portrait adds length but no new information; About owns the photo. */
   .view-home .home-view{grid-template-columns:1fr!important;grid-template-rows:auto auto!important;min-height:calc(100vh - 78px);padding-top:30px!important;gap:24px!important}
