@@ -45,6 +45,7 @@ export default function App() {
 
         {view === 'work' && (
           <section className="work-view screen-enter" aria-labelledby="work-heading">
+            <div className="page-nav page-nav-top"><button className="page-back" type="button" onClick={() => go('home')}>← BACK</button><button className="page-next" type="button" onClick={() => go('about')}>ABOUT →</button></div>
             <div className="view-eyebrow">PROOF OF IMPACT</div>
             <div className="work-hero"><div><h1 id="work-heading">Four ways I have driven AI adoption.</h1><p>Different problems. Same approach: find the friction, design the intervention, enable people, measure the impact.</p></div></div>
             <div className="project-grid">{caseStudies.map((study, index) => <CaseStudyCard key={study.slug} study={study} index={index} onOpen={() => go(`case:${study.slug}`)} />)}</div>
@@ -55,7 +56,11 @@ export default function App() {
         {selectedCase && <CaseDetail study={selectedCase} onBack={() => go('work')} />}
 
         {view === 'about' && (
-          <section className="about-view screen-enter" aria-labelledby="about-heading"><div className="about-photo"><img src={headshot} alt="Professional headshot of Cesar Ramos" /></div><div className="about-copy"><div className="view-eyebrow">ABOUT CESAR</div><h1 id="about-heading">{about.heading}</h1><p className="about-lede">{about.body}</p><div className="about-stats">{about.stats.map((stat) => <div key={stat.value}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}</div><div className="capability-cloud">{about.capabilities.map((item) => <span key={item}>{item}</span>)}</div><div className="about-actions"><a className="button primary" href={`${import.meta.env.BASE_URL}Cesar_Ramos_AI_Enablement_Resume.docx`} download>DOWNLOAD RÉSUMÉ</a><a className="button ghost" href="mailto:caramos0918@gmail.com">CONNECT WITH CESAR</a></div></div></section>
+          <section className="about-view screen-enter" aria-labelledby="about-heading">
+            <div className="page-nav page-nav-top about-page-nav"><button className="page-back" type="button" onClick={() => go('work')}>← BACK TO PROOF</button><button className="page-next" type="button" onClick={() => go('home')}>HOME →</button></div>
+            <div className="about-photo"><img src={headshot} alt="Professional headshot of Cesar Ramos" /></div>
+            <div className="about-copy"><div className="view-eyebrow">ABOUT CESAR</div><h1 id="about-heading">{about.heading}</h1><p className="about-lede">{about.body}</p><div className="about-stats">{about.stats.map((stat) => <div key={stat.value}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}</div><div className="capability-cloud">{about.capabilities.map((item) => <span key={item}>{item}</span>)}</div><div className="about-actions"><a className="button primary" href={`${import.meta.env.BASE_URL}Cesar_Ramos_AI_Enablement_Resume.docx`} download>DOWNLOAD RÉSUMÉ</a><a className="button ghost" href="mailto:caramos0918@gmail.com">CONNECT WITH CESAR</a></div></div>
+          </section>
         )}
       </main>
     </div>
@@ -68,13 +73,13 @@ function CaseDetail({ study, onBack }: { study: (typeof caseStudies)[number]; on
 
   return (
     <section className="case-view screen-enter" aria-labelledby="case-heading">
-      <button className="back-link case-back" type="button" onClick={onBack}><span aria-hidden="true">←</span> BACK TO PROJECTS</button>
+      <div className="page-nav page-nav-top"><button className="page-back" type="button" onClick={onBack}>← BACK TO PROJECTS</button></div>
       <div className="case-hero"><div><div className="view-eyebrow">{study.eyebrow}</div><h1 id="case-heading">{study.title}</h1><span className="status-pill">{study.status}</span></div><div className="case-hero-metric"><strong>{study.metrics[0].value}</strong><span>{study.metrics[0].label}</span></div></div>
       <div className="case-demo-stage"><div className="case-demo-hint"><span>INTERACTIVE EXAMPLE</span><strong>Click the controls below to explore it.</strong><b aria-hidden="true">↓</b></div><InteractiveRepresentativePreview kind={study.slug} /></div>
       <div className="case-story-toggle"><div><span>HOW IT WORKED</span><strong>Want the thinking behind the example?</strong></div><button className="button ghost" type="button" onClick={() => setShowStory((value) => !value)} aria-expanded={showStory}>{showStory ? 'HIDE DETAILS ↑' : 'SHOW THE APPROACH ↓'}</button></div>
       {showStory && <><div className="story-line" aria-label="Case study stages">{sections.map(([label], index) => <span key={label}><b>{String(index + 1).padStart(2, '0')}</b>{label}</span>)}</div><div className="story-grid">{sections.map(([label, copy], index) => <article key={label} className="story-card"><span>{String(index + 1).padStart(2, '0')} / {label}</span><p>{copy}</p></article>)}</div></>}
       <section className="impact-panel" aria-labelledby="impact-heading"><div><span>IMPACT</span><h2 id="impact-heading">What changed.</h2>{study.note && <p>{study.note}</p>}</div><div className="impact-metrics">{study.metrics.map((metric) => <div key={`${metric.value}-${metric.label}`}><strong>{metric.value}</strong><span>{metric.label}</span></div>)}</div></section>
-      <div className="case-footer-actions"><button className="button ghost" type="button" onClick={onBack}>← BACK TO PROJECTS</button><a className="button primary" href="mailto:caramos0918@gmail.com">TALK WITH CESAR</a></div>
+      <div className="page-nav case-footer-actions"><button className="page-back" type="button" onClick={onBack}>← BACK TO PROJECTS</button><a className="page-next" href="mailto:caramos0918@gmail.com">TALK WITH CESAR →</a></div>
     </section>
   )
 }
