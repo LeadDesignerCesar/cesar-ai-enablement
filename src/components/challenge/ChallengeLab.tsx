@@ -21,14 +21,14 @@ export default function ChallengeLab({ onSeeWork, onExit }: { onSeeWork: () => v
   }
 
   return (
-    <section className="challenge-view screen-enter" aria-labelledby="challenge-heading">
-      <div className="challenge-topbar">
+    <section className={`challenge-view screen-enter ${step === 5 ? 'challenge-complete' : ''}`} aria-labelledby="challenge-heading">
+      {step < 5 && <div className="challenge-topbar">
         <button className="page-back" type="button" onClick={previous}>← {step === 1 ? 'BACK' : 'PREVIOUS'}</button>
         <div className="challenge-progress" aria-label={`Challenge progress ${Math.min(step, 4)} of 4`}>
           {[1,2,3,4].map((n) => <i key={n} className={step >= n ? 'active' : ''} />)}
-          <span>{step === 5 ? 'COMPLETE' : `0${step} / 04`}</span>
+          <span>{`0${step} / 04`}</span>
         </div>
-      </div>
+      </div>}
 
       <div className={`challenge-layout ${step === 5 ? 'results-layout' : ''}`}>
         <div className="challenge-main">
@@ -36,11 +36,7 @@ export default function ChallengeLab({ onSeeWork, onExit }: { onSeeWork: () => v
             {!friction && <Instruction>Choose the biggest barrier to performance.</Instruction>}
             <ChoiceGrid options={Object.keys(challenge.friction.options)} selected={friction} onSelect={(v) => setFriction(v as Friction)} />
             {friction && <Feedback>{challenge.friction.options[friction]}</Feedback>}
-            <div className="micro-question">
-              <span>WHO FEELS IT MOST?</span>
-              {!audience && <Instruction compact>Choose the group most affected.</Instruction>}
-              <ChoiceGrid compact options={[...challenge.friction.audiences]} selected={audience} onSelect={(v) => setAudience(v as Audience)} />
-            </div>
+            <div className="micro-question"><span>WHO FEELS IT MOST?</span>{!audience && <Instruction compact>Choose the group most affected.</Instruction>}<ChoiceGrid compact options={[...challenge.friction.audiences]} selected={audience} onSelect={(v) => setAudience(v as Audience)} /></div>
             <NavigationRow onBack={onExit} backLabel="BACK" nextLabel="CONTINUE" nextDisabled={!friction || !audience} onNext={() => setStep(2)} />
           </Stage>}
 
@@ -72,29 +68,15 @@ export default function ChallengeLab({ onSeeWork, onExit }: { onSeeWork: () => v
             <span className="result-kicker">YOUR ENABLEMENT BLUEPRINT</span>
             <h1 id="challenge-heading">Here’s the plan you built.</h1>
             <p className="result-lede">Four choices. One practical enablement approach.</p>
-            <div className="blueprint-final">
-              <div><span>01 / FRICTION</span><strong>{friction}</strong></div>
-              <div><span>02 / SOLUTION</span><strong>{solution}</strong></div>
-              <div><span>03 / ADOPTION</span><strong>{adoption}</strong></div>
-              <div><span>04 / PROOF</span><strong>{measure}</strong></div>
-            </div>
+            <div className="blueprint-final"><div><span>01 / FRICTION</span><strong>{friction}</strong></div><div><span>02 / SOLUTION</span><strong>{solution}</strong></div><div><span>03 / ADOPTION</span><strong>{adoption}</strong></div><div><span>04 / PROOF</span><strong>{measure}</strong></div></div>
             <div className="result-recommendation"><span>RECOMMENDED APPROACH</span><p>{recommendation}</p></div>
             <div className="result-reveal"><strong>Now see what this looks like when I build it for real.</strong><span>Representative demos are used to protect employer-specific branding and production interfaces.</span></div>
-            <div className="page-nav"><button className="page-back" type="button" onClick={() => setStep(4)}>← PREVIOUS</button><button className="page-next" type="button" onClick={onSeeWork}>SHOW ME THE WORK →</button></div>
+            <div className="page-nav result-actions"><button className="page-back" type="button" onClick={() => setStep(4)}>← EDIT MY PLAN</button><button className="page-next" type="button" onClick={onSeeWork}>SHOW ME THE WORK →</button></div>
             <button className="result-reset" type="button" onClick={reset}>Try another path</button>
           </div>}
         </div>
 
-        {step < 5 && <aside className="blueprint-live" aria-label="Live enablement blueprint">
-          <div className="blueprint-check">✓</div>
-          <span>LIVE BLUEPRINT</span>
-          <h2>Building your plan.</h2>
-          <BlueprintRow label="Friction" value={friction} active={step === 1} />
-          <BlueprintRow label="Solution" value={solution} active={step === 2} />
-          <BlueprintRow label="Adoption" value={adoption} active={step === 3} />
-          <BlueprintRow label="Proof" value={measure} active={step === 4} />
-          <p>Your choices shape the recommendation in real time.</p>
-        </aside>}
+        {step < 5 && <aside className="blueprint-live" aria-label="Live enablement blueprint"><div className="blueprint-check">✓</div><span>LIVE BLUEPRINT</span><h2>Building your plan.</h2><BlueprintRow label="Friction" value={friction} active={step === 1} /><BlueprintRow label="Solution" value={solution} active={step === 2} /><BlueprintRow label="Adoption" value={adoption} active={step === 3} /><BlueprintRow label="Proof" value={measure} active={step === 4} /><p>Your choices shape the recommendation in real time.</p></aside>}
       </div>
     </section>
   )
