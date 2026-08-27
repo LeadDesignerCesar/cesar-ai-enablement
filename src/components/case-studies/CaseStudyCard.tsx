@@ -1,44 +1,25 @@
-import { useState } from 'react'
 import type { caseStudies } from '../../data/portfolioData'
 
 type CaseStudy = (typeof caseStudies)[number]
-const steps = ['FRICTION', 'DISCOVERY', 'SOLUTION', 'ENABLEMENT', 'GOVERNANCE', 'IMPACT'] as const
 
-export default function CaseStudyCard({ study, index }: { study: CaseStudy; index: number }) {
-  const [active, setActive] = useState<(typeof steps)[number]>('FRICTION')
-  const content: Record<(typeof steps)[number], string> = {
-    FRICTION: study.friction,
-    DISCOVERY: study.discovery,
-    SOLUTION: study.solution,
-    ENABLEMENT: study.enablement,
-    GOVERNANCE: study.governance,
-    IMPACT: study.note ?? 'Measured or projected outcomes are summarized below.',
-  }
+const recruiterQuestions = [
+  'Can he change a business outcome?',
+  'Can he create something people want to use?',
+  'Does he understand adaptive learning?',
+  'Can he make AI practice useful and safe?',
+]
 
+export default function CaseStudyCard({ study, index, onOpen }: { study: CaseStudy; index: number; onOpen: () => void }) {
+  const heroMetric = study.metrics.find((metric) => metric.value.includes('%')) ?? study.metrics[0]
   return (
-    <article className="case-study" id={study.slug}>
-      <div className="case-index">0{index + 1}</div>
-      <div className="case-topline"><span>{study.eyebrow}</span><span className="status">{study.status}</span></div>
-      <h3>{study.title}</h3>
-      <div className="case-layout">
-        <div className="case-stepper" role="tablist" aria-label={`${study.title} case study stages`}>
-          {steps.map((step) => (
-            <button key={step} type="button" role="tab" aria-selected={active === step} onClick={() => setActive(step)}>{step}</button>
-          ))}
-        </div>
-        <div className="case-content" role="tabpanel" tabIndex={0}>
-          <span className="content-label">{active}</span>
-          <p>{content[active]}</p>
-          {active === 'IMPACT' && (
-            <div className="metrics-grid">
-              {study.metrics.map((metric) => <div key={`${metric.value}-${metric.label}`}><strong>{metric.value}</strong><span>{metric.label}</span></div>)}
-            </div>
-          )}
-        </div>
+    <button className={`project-card project-${index + 1}`} type="button" onClick={onOpen} aria-label={`Open ${study.title} case study`}>
+      <div className="project-top"><span>0{index + 1}</span><span>{study.eyebrow}</span></div>
+      <div className="project-metric"><strong>{heroMetric.value}</strong><span>{heroMetric.label}</span></div>
+      <div className="project-bottom">
+        <p>{recruiterQuestions[index]}</p>
+        <h2>{study.title}</h2>
+        <span className="project-open">OPEN CASE STUDY <b>↗</b></span>
       </div>
-      <div className="case-flow" aria-label="Cesar's enablement method">
-        {steps.map((step) => <span key={step}>{step}</span>)}
-      </div>
-    </article>
+    </button>
   )
 }
