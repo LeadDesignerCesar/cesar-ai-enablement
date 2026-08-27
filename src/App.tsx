@@ -9,6 +9,15 @@ type View = 'home' | 'challenge' | 'work' | 'about' | `case:${string}`
 
 const SCORE_KEY = 'cesar-ai-enablement-score'
 const POINTS_PER_CLICK = 10
+const SCORE_MILESTONES = [
+  { score: 100, message: 'Nice. You’re exploring.' },
+  { score: 250, message: 'See? He’s pretty good.' },
+  { score: 500, message: 'Glad you’re enjoying the lab.' },
+  { score: 750, message: 'You found the good stuff.' },
+  { score: 1000, message: 'Okay, now you’re committed.' },
+  { score: 1500, message: 'Still clicking? I like you.' },
+  { score: 2000, message: 'Recruiter high score energy.' },
+]
 
 export default function App() {
   const [view, setView] = useState<View>('home')
@@ -18,6 +27,7 @@ export default function App() {
     return Number.isFinite(saved) && saved >= 0 ? saved : 0
   })
   const [scoreBump, setScoreBump] = useState(false)
+  const [milestoneMessage, setMilestoneMessage] = useState<string | null>(null)
   const selectedCase = view.startsWith('case:') ? caseStudies.find((study) => study.slug === view.slice(5)) : undefined
   const go = (next: View) => { setView(next); window.scrollTo({ top: 0, behavior: 'smooth' }) }
 
@@ -25,6 +35,8 @@ export default function App() {
     const awardPoints = () => {
       setScore((current) => {
         const next = current + POINTS_PER_CLICK
+        const crossed = SCORE_MILESTONES.find((milestone) => current < milestone.score && next >= milestone.score)
+        if (crossed) setMilestoneMessage(crossed.message)
         window.localStorage.setItem(SCORE_KEY, String(next))
         return next
       })
@@ -41,11 +53,17 @@ export default function App() {
     return () => window.clearTimeout(timer)
   }, [scoreBump])
 
+  useEffect(() => {
+    if (!milestoneMessage) return
+    const timer = window.setTimeout(() => setMilestoneMessage(null), 3200)
+    return () => window.clearTimeout(timer)
+  }, [milestoneMessage])
+
   return (
     <div className={`app-shell view-${view.startsWith('case:') ? 'case' : view}`}>
       <a className="skip-link" href="#main">Skip to content</a>
-      <div className={`score-chip ${scoreBump ? 'score-bump' : ''}`} aria-live="polite" aria-label={`Your score is ${score} points`}>
-        <span>YOUR SCORE</span><strong>{score.toLocaleString()}</strong><small>+{POINTS_PER_CLICK} every click</small>
+      <div className={`score-chip ${scoreBump ? 'score-bump' : ''} ${milestoneMessage ? 'score-milestone' : ''}`} aria-live="polite" aria-label={milestoneMessage ?? `Your score is ${score} points`}>
+        {milestoneMessage ? <span className="score-message">{milestoneMessage}</span> : <><span>YOUR SCORE</span><strong>{score.toLocaleString()}</strong></>}
       </div>
 
       {view !== 'work' && (
