@@ -26,7 +26,36 @@ export default function RepresentativePreview({ kind, compact = false }: { kind:
         </div>
       )}
       {kind === 'event-app' && (
-        <div className="rep-phone-wrap"><div className="rep-phone"><div className="phone-status"><span>9:41</span><b>● ● ●</b></div><div className="event-hero"><span>EVENT APP</span><strong>YOU'RE IN.</strong><small>Choose how you want to participate.</small></div><div className="event-actions"><div>🏆<span>Leaderboard</span></div><div>📷<span>Share a photo</span></div><div>💬<span>Ask a question</span></div><div>✨<span>Join activity</span></div></div></div></div>
+        <div className="rep-event-suite">
+          <div className="event-suite-copy">
+            <span>TRAINING SUMMIT EXPERIENCE</span>
+            <strong>One app that changed with the event.</strong>
+            <p>The interface surfaced the right information at the right time, then layered in participation, discovery, and social proof.</p>
+            <div className="event-feature-list">
+              <div><b>NOW</b><span>Time-aware landing page</span></div>
+              <div><b>ROOM</b><span>Personal breakout destination</span></div>
+              <div><b>Q&A</b><span>Questions routed to speakers</span></div>
+              <div><b>QR</b><span>Gamified vendor scavenger hunt</span></div>
+              <div><b>LIVE</b><span>Cross-company leaderboard</span></div>
+              <div><b>PHOTO</b><span>Attendee uploads for Comms + Marketing</span></div>
+            </div>
+          </div>
+          <div className="event-device-cluster">
+            <div className="event-phone main-phone">
+              <div className="phone-status"><span>10:42</span><b>● ● ●</b></div>
+              <div className="summit-header"><span>TRAINING SUMMIT</span><small>Tuesday · Live</small></div>
+              <div className="now-card"><span>RIGHT NOW</span><strong>Breakout Session</strong><p>You’re in <b>ROOM C</b></p><small>Based on your agenda and the current time</small></div>
+              <div className="summit-grid"><div>AGENDA</div><div>ASK A QUESTION</div><div>SCAN QR</div><div>LEADERBOARD</div><div>UPLOAD PHOTO</div><div>MY ROOM</div></div>
+            </div>
+            <div className="event-phone side-phone">
+              <div className="phone-status"><span>2:18</span><b>● ● ●</b></div>
+              <div className="leaderboard-title"><span>LIVE SCOREBOARD</span><strong>SCAVENGER HUNT</strong></div>
+              <div className="leaderboard-list"><div><b>01</b><span>North + West</span><strong>1,240</strong></div><div><b>02</b><span>Central + East</span><strong>1,180</strong></div><div><b>03</b><span>Vendor Quest</span><strong>1,060</strong></div></div>
+              <div className="qr-progress"><span>QR CLUES FOUND</span><strong>7 / 10</strong><small>Keep talking. Keep scanning.</small></div>
+            </div>
+          </div>
+          <div className="event-outcome-strip"><div><strong>VENDORS</strong><span>More attendee interaction</span></div><div><strong>ATTENDEES</strong><span>More cross-company conversation</span></div><div><strong>SPEAKERS</strong><span>Questions captured for response</span></div><div><strong>MARKETING</strong><span>Fresh attendee-generated photo library</span></div></div>
+        </div>
       )}
       {kind === 'adaptive-quiz' && (
         <div className="rep-assessment"><div className="assessment-top"><span>ADAPTIVE CHECK</span><b>2 / 5</b></div><h4>A customer reports recurring activity. What matters first?</h4><div className="assessment-choice muted">A. Repeat the same treatment</div><div className="assessment-choice selected">B. Identify the reason it returned <b>✓</b></div><div className="assessment-feedback"><span>WHY THIS WORKS</span><p>Your answer targets the cause, so the next practice question moves to diagnosis instead of repeating the basics.</p></div></div>
