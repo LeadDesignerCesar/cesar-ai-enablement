@@ -8,6 +8,7 @@ import './styles/event.css'
 import './styles/production.css'
 import './styles/hiring.css'
 import './styles/work.css'
+import './styles/typography.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
