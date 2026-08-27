@@ -4,10 +4,10 @@ import RepresentativePreview from './RepresentativePreview'
 type CaseStudy = (typeof caseStudies)[number]
 
 const recruiterQuestions = [
-  'Can he change a business outcome?',
-  'Can he create something people want to use?',
-  'Does he understand adaptive learning?',
-  'Can he make AI practice useful and safe?',
+  'AI WORKFLOW · Increase speed without removing human judgment',
+  'ADOPTION · Turn technology into behavior people actually use',
+  'PERSONALIZATION · Use performance data to target the right support',
+  'DECISION QUALITY · Help managers make evidence-based choices',
 ]
 
 export default function CaseStudyCard({ study, index, onOpen }: { study: CaseStudy; index: number; onOpen: () => void }) {
