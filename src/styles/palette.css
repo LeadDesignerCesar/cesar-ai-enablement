@@ -8,6 +8,11 @@
   --gold:#9a6a16;
   --gold-dark:#7d5511;
   --gold-soft:#f7f0df;
+
+  /* Normalize older component accent variables without changing layout. */
+  --teal:#1f5d4f;
+  --teal2:#7fa99c;
+  --coral:#9a6a16;
 }
 
 /* Home: one forest green, one gold, no competing accent colors. */
@@ -17,8 +22,11 @@
 .eyebrow,.view-eyebrow,.case-demo-copy>span,.result-kicker{color:var(--green)!important}
 .button.primary,.hero-primary{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important}
 .button.primary:hover,.hero-primary:hover{background:var(--green-dark)!important;border-color:var(--green-dark)!important}
+.hero-actions .text-button{color:#111318!important}
+.hero-actions .text-button:hover{color:var(--gold-dark)!important}
 .role-chip{background:#111318!important;color:#fff!important}
 .role-chip span{color:#e8e3d8!important}
+.method-ticker span:first-child{background:var(--green)!important;color:#fff!important}
 .method-ticker b{color:var(--gold)!important}
 
 /* Use gold as a small signal, never a competing block of color. */
@@ -33,7 +41,7 @@
 
 /* Proof page gets its own clear invitation into the lab. */
 .view-work .work-view{padding-top:30px}
-.page-lab-cta{background:var(--gold)!important;border-color:var(--gold)!important;color:#fff!important;box-shadow:0 7px 18px rgba(154,106,22,.16)}
+.page-lab-cta{background:var(--gold)!important;border-color:var(--gold)!important;color:#fff!important;box-shadow:0 7px 18px rgba(154,106,22,.16);display:inline-flex!important;justify-content:space-between!important;gap:18px!important;min-width:210px}
 .page-lab-cta:hover{background:var(--gold-dark)!important;border-color:var(--gold-dark)!important;color:#fff!important}
 
 /* Navigation: back and forward controls use the same forest-green system. */
@@ -50,10 +58,13 @@
 .challenge-stage .view-eyebrow{color:var(--green)!important}
 .interaction-instruction span{color:var(--gold)!important}
 .choice-grid button{border-color:#d8d2c8!important;background:#fffdfa!important;color:#111318!important}
+.choice-grid button>span{border-color:var(--green)!important;color:var(--green)!important}
 .choice-grid button:hover{border-color:var(--green)!important;background:var(--green-soft)!important}
-.choice-grid button.selected{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important}
-.choice-grid button.selected>span,.choice-grid button.selected>b{color:var(--gold-soft)!important}
-.choice-grid button>span{color:#747980!important}
+.choice-grid button.selected{background:var(--green)!important;border:2px solid var(--green)!important;color:#fff!important;box-shadow:0 0 0 3px rgba(154,106,22,.16)!important}
+.choice-grid button.selected strong{color:#fff!important}
+.choice-grid button.selected>span{border-color:var(--gold)!important;color:var(--gold)!important;background:rgba(255,255,255,.04)!important}
+.choice-grid button.selected>b{color:var(--gold)!important}
+.choice-grid button.selected:after{background:var(--gold)!important;color:#fff!important}
 .feedback{border-left-color:var(--gold)!important;background:var(--gold-soft)!important}
 .feedback>span{color:var(--gold)!important}
 .feedback p{color:#3f4449!important}
@@ -63,7 +74,8 @@
 .pattern-display span,.branch-demo span{border:1px solid rgba(31,93,79,.18)!important;background:var(--green-soft)!important;color:var(--green)!important}
 .metric-preview strong{color:var(--green)!important}
 .blueprint-live{border-color:#d8d2c8!important;background:#fffdfa!important}
-.blueprint-live>span,.blueprint-row.active span,.blueprint-row.filled strong{color:var(--green)!important}
+.blueprint-live>span{color:var(--gold)!important}
+.blueprint-row.active span,.blueprint-row.filled strong{color:var(--green)!important}
 .blueprint-check{color:var(--green)!important;border-color:var(--green)!important}
 .blueprint-final>b{color:var(--gold)!important}
 .result-recommendation>span{color:var(--green)!important}
@@ -85,5 +97,5 @@
 
   .view-work .work-view{padding-top:18px}
   .view-work .page-nav-top{margin-bottom:22px}
-  .page-lab-cta{font-size:.59rem!important;padding-inline:12px!important}
+  .page-lab-cta{font-size:.59rem!important;padding-inline:12px!important;min-width:190px}
 }
