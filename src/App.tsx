@@ -42,15 +42,18 @@ export default function App() {
   }, [scoreBump])
 
   return (
-    <div className="app-shell">
+    <div className={`app-shell view-${view.startsWith('case:') ? 'case' : view}`}>
       <a className="skip-link" href="#main">Skip to content</a>
       <div className={`score-chip ${scoreBump ? 'score-bump' : ''}`} aria-live="polite" aria-label={`Your score is ${score} points`}>
         <span>YOUR SCORE</span><strong>{score.toLocaleString()}</strong><small>+{POINTS_PER_CLICK} every click</small>
       </div>
-      <header className="site-header">
-        <button className="brand" type="button" onClick={() => go('home')} aria-label="Cesar Ramos AI Enablement Lab home"><span className="brand-mark">CR</span><span>AI ENABLEMENT LAB</span></button>
-        <nav aria-label="Primary navigation"><button type="button" onClick={() => go('challenge')}>The Method</button><button type="button" onClick={() => go('work')}>Proof</button><button type="button" onClick={() => go('about')}>About</button><a className="nav-cta" href="mailto:caramos0918@gmail.com">Connect</a></nav>
-      </header>
+
+      {view !== 'work' && (
+        <header className="site-header">
+          <button className="brand" type="button" onClick={() => go('home')} aria-label="Cesar Ramos AI Enablement Lab home"><span className="brand-mark">CR</span><span>AI ENABLEMENT LAB</span></button>
+          <nav aria-label="Primary navigation"><button type="button" onClick={() => go('challenge')}>The Method</button><button type="button" onClick={() => go('work')}>Proof</button><button type="button" onClick={() => go('about')}>About</button><a className="nav-cta" href="mailto:caramos0918@gmail.com">Connect</a></nav>
+        </header>
+      )}
 
       <main id="main" className="view-stage">
         {view === 'home' && (
@@ -67,9 +70,13 @@ export default function App() {
             <div className="method-ticker" aria-label="Cesar's enablement method">{method.slice(0, 4).map((item, index) => <span key={item}>{String(index + 1).padStart(2, '0')} &nbsp; {item}{index < 3 && <b>→</b>}</span>)}</div>
           </section>
         )}
+
         {view === 'challenge' && <ChallengeLab onSeeWork={() => go('work')} onExit={() => go('home')} />}
-        {view === 'work' && <section className="work-view screen-enter" aria-labelledby="work-heading"><div className="page-nav page-nav-top"><button className="page-back" type="button" onClick={() => go('home')}>← BACK</button><button className="page-next" type="button" onClick={() => go('about')}>ABOUT →</button></div><div className="view-eyebrow">PROOF OF IMPACT</div><div className="work-hero"><div><h1 id="work-heading">Four ways I have driven AI adoption.</h1><p>Different problems. Same approach: find the friction, design the intervention, enable people, measure the impact.</p></div></div><div className="project-grid">{caseStudies.map((study, index) => <CaseStudyCard key={study.slug} study={study} index={index} onOpen={() => go(`case:${study.slug}`)} />)}</div><div className="work-proof-note">Built from real problems. Designed for real adoption. Measured by real outcomes.</div></section>}
+
+        {view === 'work' && <section className="work-view screen-enter" aria-labelledby="work-heading"><div className="page-nav page-nav-top"><button className="page-back page-lab-cta" type="button" onClick={() => go('challenge')}>TRY AI ENABLEMENT LAB →</button><button className="page-next" type="button" onClick={() => go('about')}>ABOUT →</button></div><div className="view-eyebrow">PROOF OF IMPACT</div><div className="work-hero"><div><h1 id="work-heading">Four ways I have driven AI adoption.</h1><p>Different problems. Same approach: find the friction, design the intervention, enable people, measure the impact.</p></div></div><div className="project-grid">{caseStudies.map((study, index) => <CaseStudyCard key={study.slug} study={study} index={index} onOpen={() => go(`case:${study.slug}`)} />)}</div><div className="work-proof-note">Built from real problems. Designed for real adoption. Measured by real outcomes.</div></section>}
+
         {selectedCase && <CaseDetail study={selectedCase} onBack={() => go('work')} />}
+
         {view === 'about' && <section className="about-view screen-enter" aria-labelledby="about-heading"><div className="page-nav page-nav-top about-page-nav"><button className="page-back" type="button" onClick={() => go('work')}>← BACK TO PROOF</button><button className="page-next" type="button" onClick={() => go('home')}>HOME →</button></div><div className="about-photo"><img src={headshot} alt="Professional headshot of Cesar Ramos" /></div><div className="about-copy"><div className="view-eyebrow">ABOUT CESAR</div><h1 id="about-heading">{about.heading}</h1><p className="about-lede">{about.body}</p><div className="about-stats">{about.stats.map((stat) => <div key={stat.value}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}</div><div className="capability-cloud">{about.capabilities.map((item) => <span key={item}>{item}</span>)}</div><div className="about-actions"><a className="button primary" href={`${import.meta.env.BASE_URL}Cesar_Ramos_AI_Enablement_Resume.docx`} download>DOWNLOAD RÉSUMÉ</a><a className="button ghost" href="mailto:caramos0918@gmail.com">CONNECT WITH CESAR</a></div></div></section>}
       </main>
     </div>
