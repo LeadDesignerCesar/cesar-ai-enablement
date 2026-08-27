@@ -28,14 +28,20 @@ export default function ChallengeLab({ onSeeWork, onExit }: { onSeeWork: () => v
       <div className={`challenge-layout ${step === 5 ? 'results-layout' : ''}`}>
         <div className="challenge-main">
           {step === 1 && <Stage number="01" eyebrow="FIND THE FRICTION" title="What is getting in the way of performance?">
+            {!friction && <Instruction>Choose the biggest barrier to performance.</Instruction>}
             <ChoiceGrid options={Object.keys(challenge.friction.options)} selected={friction} onSelect={(v) => setFriction(v as Friction)} />
             {friction && <Feedback>{challenge.friction.options[friction]}</Feedback>}
-            <div className="micro-question"><span>WHO FEELS IT MOST?</span><ChoiceGrid compact options={[...challenge.friction.audiences]} selected={audience} onSelect={(v) => setAudience(v as Audience)} /></div>
+            <div className="micro-question">
+              <span>WHO FEELS IT MOST?</span>
+              {!audience && <Instruction compact>Choose the group most affected.</Instruction>}
+              <ChoiceGrid compact options={[...challenge.friction.audiences]} selected={audience} onSelect={(v) => setAudience(v as Audience)} />
+            </div>
             <Continue disabled={!friction || !audience} onClick={() => setStep(2)} />
           </Stage>}
 
           {step === 2 && <Stage number="02" eyebrow="BUILD THE FIX" title="What kind of support removes the friction?">
             <div className="big-principle">AI SHOULD REMOVE FRICTION.<br/><em>NOT ADD ANOTHER STEP.</em></div>
+            {!solution && <Instruction>Choose the intervention that would remove the most friction.</Instruction>}
             <ChoiceGrid forceTwoByTwo options={[...challenge.solution.options]} selected={solution} onSelect={(v) => setSolution(v as Solution)} />
             {friction && solution && <Feedback><strong>{friction} + {solution}</strong> — {solutionRecommendations[friction][solution]}</Feedback>}
             <Continue disabled={!solution} onClick={() => setStep(3)} />
@@ -43,6 +49,7 @@ export default function ChallengeLab({ onSeeWork, onExit }: { onSeeWork: () => v
 
           {step === 3 && <Stage number="03" eyebrow="ENABLE THE PEOPLE" title="How will people get confident enough to use it?">
             <div className="pattern-display"><span>SEE IT</span><b>→</b><span>TRY IT</span><b>→</b><span>USE IT AT WORK</span></div>
+            {!adoption && <Instruction>Choose how people will practice or get support before using it on the job.</Instruction>}
             <ChoiceGrid forceTwoByTwo options={[...challenge.enablement.options]} selected={adoption} onSelect={(v) => setAdoption(v as Adoption)} />
             {adoption && <Feedback>{adoptionRecommendations[adoption]}</Feedback>}
             <Continue disabled={!adoption} onClick={() => setStep(4)} />
@@ -50,6 +57,7 @@ export default function ChallengeLab({ onSeeWork, onExit }: { onSeeWork: () => v
 
           {step === 4 && <Stage number="04" eyebrow="PROVE THE IMPACT" title="What evidence would prove it worked?">
             <div className="impact-statement">COMPLETION <span>≠</span> IMPACT</div>
+            {!measure && <Instruction>Choose the evidence you would use to judge whether adoption changed performance.</Instruction>}
             <ChoiceGrid forceTwoByTwo options={[...challenge.impact.options]} selected={measure} onSelect={(v) => setMeasure(v as Measure)} />
             {measure && <div className="metric-preview">{challenge.impact.simulatedMetrics[measure].map((metric) => { const [value, ...rest] = metric.split(' '); return <div key={metric}><strong>{value}</strong><span>{rest.join(' ')}</span></div> })}</div>}
             <Continue label="BUILD MY BLUEPRINT" disabled={!measure} onClick={() => setStep(5)} />
@@ -88,6 +96,7 @@ export default function ChallengeLab({ onSeeWork, onExit }: { onSeeWork: () => v
 
 function Stage({ number, eyebrow, title, children }: { number: string; eyebrow: string; title: string; children: ReactNode }) { return <div className="challenge-stage screen-enter"><div className="stage-number">{number}</div><div className="view-eyebrow">{eyebrow}</div><h1>{title}</h1>{children}</div> }
 function ChoiceGrid({ options, selected, onSelect, compact = false, forceTwoByTwo = false }: { options: string[]; selected: string | null; onSelect: (value: string) => void; compact?: boolean; forceTwoByTwo?: boolean }) { return <div className={`choice-grid ${compact ? 'compact' : ''} ${forceTwoByTwo ? 'two-by-two' : ''}`}>{options.map((option, index) => <button key={option} type="button" aria-pressed={selected === option} className={selected === option ? 'selected' : ''} onClick={() => onSelect(option)}><span>0{index + 1}</span><strong>{option}</strong><b>↗</b></button>)}</div> }
+function Instruction({ children, compact = false }: { children: ReactNode; compact?: boolean }) { return <p className={`interaction-instruction ${compact ? 'compact' : ''}`}><span aria-hidden="true">↓</span>{children}</p> }
 function Feedback({ children }: { children: ReactNode }) { return <div className="feedback"><span>↳</span><p>{children}</p></div> }
 function Continue({ disabled, onClick, label = 'CONTINUE' }: { disabled: boolean; onClick: () => void; label?: string }) { return <button className="button primary continue" type="button" disabled={disabled} onClick={onClick}>{label} <span>→</span></button> }
 function BlueprintRow({ label, value, active }: { label: string; value: string | null; active: boolean }) { return <div className={`blueprint-row ${active ? 'active' : ''} ${value ? 'filled' : ''}`}><span>{label}</span><strong>{value ?? '—'}</strong></div> }
