@@ -1,0 +1,136 @@
+/* Portfolio-wide type system: one family, restrained scale, two accent colors. */
+:root{
+  --type-display:clamp(3.2rem,5.4vw,5.6rem);
+  --type-page:clamp(2.7rem,4.4vw,4.6rem);
+  --type-section:clamp(1.8rem,2.6vw,2.5rem);
+  --type-card:clamp(1.2rem,1.6vw,1.55rem);
+  --type-body:1rem;
+  --type-small:.82rem;
+  --type-label:.68rem;
+  --leading-tight:.94;
+  --leading-heading:1.05;
+  --leading-body:1.6;
+  --text-main:#111318;
+  --text-secondary:#5f6470;
+  --text-tertiary:#7a7f89;
+  --accent-primary:#ff5f4d;
+  --accent-secondary:#11a9a1;
+}
+
+html,body,button,input,select,textarea{
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+
+/* Keep the visual hierarchy predictable across every portfolio view. */
+.hero-copy h1,
+.work-hero h1,
+.about-copy h1,
+.case-hero h1,
+.challenge-stage h1,
+.result-view h1{
+  font-size:var(--type-page)!important;
+  line-height:var(--leading-tight)!important;
+  letter-spacing:-.055em!important;
+  font-weight:850!important;
+  color:var(--text-main)!important;
+  max-width:18ch;
+}
+
+.hero-copy h1{font-size:var(--type-display)!important;max-width:11ch}
+.hero-try{font-size:clamp(2.9rem,4.7vw,4.8rem)!important;line-height:.92!important;letter-spacing:-.055em!important;font-weight:850!important;color:var(--accent-primary)!important;margin:.05em 0 .22em!important}
+
+.hero-subhead,
+.big-principle,
+.impact-statement{
+  font-size:var(--type-section)!important;
+  line-height:var(--leading-heading)!important;
+  letter-spacing:-.035em!important;
+  font-weight:760!important;
+}
+
+.hero-kicker,
+.hero-statement,
+.work-hero p,
+.about-lede,
+.story-card p,
+.recommendation,
+.case-demo-copy p{
+  font-size:var(--type-body)!important;
+  line-height:var(--leading-body)!important;
+  color:var(--text-secondary)!important;
+  font-weight:450!important;
+}
+
+.eyebrow,.view-eyebrow,.demo-label,
+.project-top,.project-open,.story-line span,.story-card>span,
+.case-demo-copy>span,.challenge-stage>span,.result-kicker{
+  font-size:var(--type-label)!important;
+  line-height:1.35!important;
+  letter-spacing:.13em!important;
+  font-weight:800!important;
+  text-transform:uppercase;
+}
+
+.eyebrow,.view-eyebrow,.case-demo-copy>span,.result-kicker{color:var(--accent-secondary)!important}
+
+/* Calm the home page: fewer simultaneous emphasis levels. */
+.hero-copy{max-width:720px}
+.hero-kicker{font-weight:650!important;color:var(--text-secondary)!important;margin-bottom:10px!important}
+.hero-subhead{max-width:650px;margin-top:20px!important;color:#272b33!important}
+.hero-statement{max-width:620px;margin-top:16px!important}
+.proof-rail strong{font-size:1.55rem!important;line-height:1!important;font-weight:800!important;letter-spacing:-.035em!important;color:var(--text-main)!important}
+.proof-rail span{font-size:.65rem!important;letter-spacing:.1em!important;color:var(--text-tertiary)!important}
+.method-ticker span{font-size:.65rem!important;letter-spacing:.1em!important;font-weight:750!important}
+.method-ticker b{color:var(--accent-secondary)!important}
+
+/* Work gallery: title first, proof second, preview third. */
+.work-hero{align-items:center!important}
+.work-hero h1{margin-bottom:14px!important}
+.work-hero p{max-width:680px!important}
+.verified-punch strong{font-size:2.6rem!important;font-weight:850!important}
+.verified-punch span{font-size:.64rem!important;letter-spacing:.08em!important;line-height:1.35!important}
+.project-card{font-family:inherit!important}
+.project-proofline strong{font-size:2.25rem!important;line-height:1!important;letter-spacing:-.045em!important;font-weight:830!important}
+.project-proofline span{font-size:.78rem!important;line-height:1.4!important;color:var(--text-secondary)!important}
+.project-bottom p{font-size:.72rem!important;line-height:1.35!important;letter-spacing:.02em!important;font-weight:760!important;color:#9a6811!important}
+.project-bottom h2{font-size:var(--type-card)!important;line-height:1.12!important;letter-spacing:-.03em!important;font-weight:800!important;color:var(--text-main)!important;max-width:28ch}
+.project-open{color:var(--text-secondary)!important}
+
+/* Case studies: preserve the demos, simplify the surrounding reading layer. */
+.case-hero h1{max-width:15ch!important;margin-bottom:16px!important}
+.case-hero-metric strong{font-size:3.3rem!important;line-height:1!important;letter-spacing:-.055em!important;font-weight:830!important;color:var(--accent-secondary)!important}
+.case-hero-metric span{font-size:.78rem!important;line-height:1.4!important;color:var(--text-secondary)!important}
+.case-demo-copy h2{font-size:var(--type-section)!important;line-height:1.02!important;letter-spacing:-.035em!important;font-weight:800!important;color:var(--text-main)!important}
+.story-card p{font-size:.9rem!important;line-height:1.55!important}
+.impact-panel h2{font-size:2.35rem!important;line-height:1!important;letter-spacing:-.04em!important;font-weight:820!important}
+.impact-metrics strong{font-size:2rem!important;font-weight:820!important;letter-spacing:-.04em!important}
+.impact-metrics span{font-size:.74rem!important;line-height:1.4!important}
+
+/* Challenge: one dominant prompt, choices at one consistent level. */
+.challenge-stage h1{max-width:16ch!important;margin-bottom:24px!important}
+.choice-grid button>strong{font-size:.82rem!important;line-height:1.25!important;letter-spacing:.045em!important;font-weight:780!important}
+.choice-grid button>span{font-size:.62rem!important}
+.feedback p{font-size:.9rem!important;line-height:1.55!important}
+.blueprint-live h2{font-size:1.4rem!important;line-height:1.08!important;letter-spacing:-.025em!important}
+.blueprint-row span,.blueprint-row strong{font-size:.72rem!important;line-height:1.35!important}
+
+/* About: same hierarchy, no new type language. */
+.about-copy h1{max-width:14ch!important}
+.about-stats strong{font-size:1.8rem!important;font-weight:820!important;letter-spacing:-.035em!important}
+.about-stats span,.capability-cloud span{font-size:.74rem!important;line-height:1.35!important}
+
+/* Use color for meaning, not decoration. */
+.button.primary{background:var(--accent-primary)!important;border-color:var(--accent-primary)!important;color:white!important}
+.button.ghost,.button.text-button{color:var(--text-main)!important}
+.status-pill{color:var(--accent-secondary)!important;border-color:rgba(17,169,161,.25)!important;background:rgba(17,169,161,.06)!important}
+
+@media(max-width:700px){
+  :root{--type-display:clamp(3rem,14vw,4.2rem);--type-page:clamp(2.35rem,11vw,3.5rem);--type-section:clamp(1.55rem,7vw,2rem);--type-body:.96rem}
+  .hero-copy h1,.work-hero h1,.about-copy h1,.case-hero h1,.challenge-stage h1,.result-view h1{max-width:none}
+  .hero-copy h1{max-width:9ch}
+  .hero-try{font-size:clamp(2.7rem,12vw,3.7rem)!important}
+  .proof-rail strong{font-size:1.3rem!important}
+  .project-proofline strong{font-size:1.9rem!important}
+  .project-bottom h2{font-size:1.2rem!important}
+  .case-hero-metric strong{font-size:2.7rem!important}
+}
