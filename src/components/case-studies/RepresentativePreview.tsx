@@ -34,7 +34,7 @@ export default function RepresentativePreview({ kind, compact = false }: { kind:
           <div className="coach-top"><span>COACHING PRACTICE</span><b>PRIVATE REHEARSAL</b></div>
           <div className="chat bubble-left">Your technician missed the standard again. How would you open the conversation?</div>
           <div className="chat bubble-right">I want to understand what’s getting in the way before we decide what needs to change.</div>
-          <div className="coach-score"><span>CLARITY</span><strong>8.4</strong><span>SPECIFICITY</span><strong>7.9</strong><button type="button">TRY AGAIN →</button></div>
+          <div className="coach-score"><span>CLARITY</span><strong>8.4</strong><span>SPECIFICITY</span><strong>7.9</strong><span className="try-again">TRY AGAIN →</span></div>
         </div>
       )}
     </div>
