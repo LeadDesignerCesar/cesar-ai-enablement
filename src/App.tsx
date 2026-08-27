@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ChallengeLab from './components/challenge/ChallengeLab'
 import CaseStudyCard from './components/case-studies/CaseStudyCard'
 import InteractiveRepresentativePreview from './components/case-studies/InteractiveRepresentativePreview'
@@ -7,14 +7,49 @@ import headshot from './assets/cesar-headshot.webp'
 
 type View = 'home' | 'challenge' | 'work' | 'about' | `case:${string}`
 
+const SCORE_KEY = 'cesar-ai-enablement-score'
+const POINTS_PER_CLICK = 10
+
 export default function App() {
   const [view, setView] = useState<View>('home')
+  const [score, setScore] = useState(() => {
+    if (typeof window === 'undefined') return 0
+    const saved = Number(window.localStorage.getItem(SCORE_KEY))
+    return Number.isFinite(saved) && saved >= 0 ? saved : 0
+  })
+  const [scoreBump, setScoreBump] = useState(false)
   const selectedCase = view.startsWith('case:') ? caseStudies.find((study) => study.slug === view.slice(5)) : undefined
   const go = (next: View) => { setView(next); window.scrollTo({ top: 0, behavior: 'smooth' }) }
+
+  useEffect(() => {
+    const awardPoints = () => {
+      setScore((current) => {
+        const next = current + POINTS_PER_CLICK
+        window.localStorage.setItem(SCORE_KEY, String(next))
+        return next
+      })
+      setScoreBump(false)
+      window.requestAnimationFrame(() => setScoreBump(true))
+    }
+
+    document.addEventListener('click', awardPoints, true)
+    return () => document.removeEventListener('click', awardPoints, true)
+  }, [])
+
+  useEffect(() => {
+    if (!scoreBump) return
+    const timer = window.setTimeout(() => setScoreBump(false), 240)
+    return () => window.clearTimeout(timer)
+  }, [scoreBump])
 
   return (
     <div className="app-shell">
       <a className="skip-link" href="#main">Skip to content</a>
+      <div className={`score-chip ${scoreBump ? 'score-bump' : ''}`} aria-live="polite" aria-label={`Your score is ${score} points`}>
+        <span>YOUR SCORE</span>
+        <strong>{score.toLocaleString()}</strong>
+        <small>+{POINTS_PER_CLICK} every click</small>
+      </div>
       <header className="site-header">
         <button className="brand" type="button" onClick={() => go('home')} aria-label="Cesar Ramos AI Enablement Lab home"><span className="brand-mark">CR</span><span>AI ENABLEMENT LAB</span></button>
         <nav aria-label="Primary navigation">
