@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import ChallengeLab from './components/challenge/ChallengeLab'
 import CaseStudyCard from './components/case-studies/CaseStudyCard'
 import InteractiveRepresentativePreview from './components/case-studies/InteractiveRepresentativePreview'
@@ -6,8 +6,10 @@ import { about, caseStudies, method, site } from './data/portfolioData'
 import headshot from './assets/cesar-headshot.webp'
 
 type View = 'home' | 'challenge' | 'work' | 'about' | `case:${string}`
+type LeaderboardEntry = { label: string; score: number }
 
 const SCORE_KEY = 'cesar-ai-enablement-score'
+const LEADERBOARD_KEY = 'cesar-ai-enablement-leaderboard'
 const POINTS_PER_CLICK = 10
 const SCORE_MILESTONES = [
   { score: 100, message: 'Nice. You’re exploring.' },
@@ -28,7 +30,15 @@ export default function App() {
   })
   const [scoreBump, setScoreBump] = useState(false)
   const [milestoneMessage, setMilestoneMessage] = useState<string | null>(null)
-  const [aboutScoreMoment, setAboutScoreMoment] = useState(false)
+  const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>(() => {
+    if (typeof window === 'undefined') return []
+    try {
+      const saved = window.localStorage.getItem(LEADERBOARD_KEY)
+      return saved ? JSON.parse(saved) as LeaderboardEntry[] : []
+    } catch {
+      return []
+    }
+  })
   const selectedCase = view.startsWith('case:') ? caseStudies.find((study) => study.slug === view.slice(5)) : undefined
   const go = (next: View) => { setView(next); window.scrollTo({ top: 0, behavior: 'smooth' }) }
 
@@ -61,22 +71,26 @@ export default function App() {
   }, [milestoneMessage])
 
   useEffect(() => {
-    if (view !== 'about') {
-      setAboutScoreMoment(false)
-      return
-    }
-    setAboutScoreMoment(true)
-    const timer = window.setTimeout(() => setAboutScoreMoment(false), 3600)
-    return () => window.clearTimeout(timer)
-  }, [view])
+    if (view !== 'about' || leaderboard.length) return
+    const seeded = [
+      { label: 'Recruiter', score: score + 30 },
+      { label: 'Private Company', score: Math.max(0, score - 20) },
+      { label: 'L&D Lead', score: Math.max(0, score - 50) },
+    ]
+    setLeaderboard(seeded)
+    window.localStorage.setItem(LEADERBOARD_KEY, JSON.stringify(seeded))
+  }, [view, score, leaderboard.length])
 
-  const scoreMessage = milestoneMessage ?? (aboutScoreMoment ? 'You explored the lab. Now meet the person behind it.' : null)
+  const rankedLeaderboard = useMemo(() => {
+    if (!leaderboard.length) return []
+    return [...leaderboard, { label: 'You', score }].sort((a, b) => b.score - a.score)
+  }, [leaderboard, score])
 
   return (
     <div className={`app-shell view-${view.startsWith('case:') ? 'case' : view}`}>
       <a className="skip-link" href="#main">Skip to content</a>
-      <div className={`score-chip ${scoreBump ? 'score-bump' : ''} ${scoreMessage ? 'score-milestone' : ''} ${aboutScoreMoment && !milestoneMessage ? 'score-about' : ''}`} aria-live="polite" aria-label={scoreMessage ?? `Your score is ${score} points`}>
-        {scoreMessage ? <div className="score-moment"><strong>{score.toLocaleString()}</strong><span>{scoreMessage}</span></div> : <><span>YOUR SCORE</span><strong>{score.toLocaleString()}</strong></>}
+      <div className={`score-chip ${scoreBump ? 'score-bump' : ''} ${milestoneMessage ? 'score-milestone' : ''}`} aria-live="polite" aria-label={milestoneMessage ?? `Your score is ${score} points`}>
+        {milestoneMessage ? <span className="score-message">{milestoneMessage}</span> : <><span>YOUR SCORE</span><strong>{score.toLocaleString()}</strong></>}
       </div>
 
       {view !== 'work' && (
@@ -112,11 +126,20 @@ export default function App() {
           <div className="page-nav page-nav-top about-page-nav"><button className="page-back" type="button" onClick={() => go('work')}>← BACK TO PROOF</button><button className="page-next" type="button" onClick={() => go('home')}>HOME →</button></div>
           <div className="about-mobile-intro" aria-hidden="true"><div className="about-mobile-photo"><img src={headshot} alt="" /></div><div className="about-mobile-copy"><span>ABOUT CESAR</span><strong>I work where people, technology, and performance meet.</strong></div></div>
           <div className="about-photo"><img src={headshot} alt="Professional headshot of Cesar Ramos" /></div>
-          <div className="about-copy"><div className="view-eyebrow">ABOUT CESAR</div><h1 id="about-heading">{about.heading}</h1><p className="about-lede">{about.body}</p><div className="about-stats">{about.stats.map((stat) => <div key={stat.value}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}</div><div className="capability-cloud">{about.capabilities.map((item) => <span key={item}>{item}</span>)}</div><div className="about-actions"><a className="button primary" href={`${import.meta.env.BASE_URL}Cesar_Ramos_AI_Enablement_Resume.docx`} download>DOWNLOAD RÉSUMÉ</a><a className="button ghost" href="mailto:caramos0918@gmail.com">CONNECT WITH CESAR</a></div></div>
+          <div className="about-copy"><div className="view-eyebrow">ABOUT CESAR</div><h1 id="about-heading">{about.heading}</h1><p className="about-lede">{about.body}</p><AboutLeaderboard entries={rankedLeaderboard} score={score} /><div className="about-stats">{about.stats.map((stat) => <div key={stat.value}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}</div><div className="capability-cloud">{about.capabilities.map((item) => <span key={item}>{item}</span>)}</div><div className="about-actions"><a className="button primary" href={`${import.meta.env.BASE_URL}Cesar_Ramos_AI_Enablement_Resume.docx`} download>DOWNLOAD RÉSUMÉ</a><a className="button ghost" href="mailto:caramos0918@gmail.com">CONNECT WITH CESAR</a></div></div>
         </section>}
       </main>
     </div>
   )
+}
+
+function AboutLeaderboard({ entries, score }: { entries: LeaderboardEntry[]; score: number }) {
+  if (!entries.length) return null
+  const leader = entries[0]
+  const youIndex = entries.findIndex((entry) => entry.label === 'You')
+  const gap = Math.max(0, leader.score - score)
+  const clicksToLead = gap > 0 ? Math.floor(gap / POINTS_PER_CLICK) + 1 : 0
+  return <aside className="about-leaderboard" aria-label="AI Enablement Lab leaderboard"><div className="leaderboard-head"><div><span>LAB LEADERBOARD</span><strong>{youIndex === 0 ? 'You took the lead.' : `${clicksToLead} more ${clicksToLead === 1 ? 'click' : 'clicks'} to take the lead.`}</strong></div><b>YOUR SCORE {score.toLocaleString()}</b></div><div className="leaderboard-list">{entries.map((entry, index) => <div key={entry.label} className={entry.label === 'You' ? 'leaderboard-you' : ''}><span>{index + 1}</span><strong>{entry.label}</strong><b>{entry.score.toLocaleString()}</b></div>)}</div></aside>
 }
 
 function CaseDetail({ study, onBack }: { study: (typeof caseStudies)[number]; onBack: () => void }) {
