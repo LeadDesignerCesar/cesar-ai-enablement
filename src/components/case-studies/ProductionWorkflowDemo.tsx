@@ -3,7 +3,7 @@ import { useState } from 'react'
 const steps = [
   { n: '01', title: 'SME INPUT', detail: 'Capture source material and subject-matter expertise.', icon: '◫' },
   { n: '02', title: 'AI-ASSISTED DRAFT', detail: 'Use AI to accelerate the first build instead of starting from a blank page.', icon: '✦' },
-  { n: '03', title: 'CESAR REVIEW', detail: 'Review the learning design, structure, clarity, and quality.', icon: '⌕' },
+  { n: '03', title: 'I (CESAR) REVIEW', detail: 'Review the learning design, structure, clarity, and quality.', icon: '⌕' },
   { n: '04', title: 'SME FEEDBACK', detail: 'Validate operational accuracy and capture corrections.', icon: '◌' },
   { n: '05', title: 'REVISE + PUBLISH', detail: 'Apply feedback and release a human-approved course.', icon: '✓' },
 ]
@@ -28,7 +28,7 @@ export default function ProductionWorkflowDemo() {
       <button type="button" className="prod-rhythm-toggle" aria-expanded={showRhythm} onClick={() => setShowRhythm((value) => !value)}>{showRhythm ? 'HIDE THE DAILY RHYTHM ↑' : 'SEE HOW 29 COURSES MOVED IN PARALLEL ↓'}</button>
       {showRhythm && <div className="prod-rhythm-reveal">
         <div className="prod-operating"><span>THE OPERATING MODEL</span><h4>Build one course while reviewing another. Every day.</h4><div className="prod-timeline"><article><b>DAY 01</b><strong>Build Course 01</strong><small>Review queue begins</small></article><article><b>DAY 02</b><strong>Build Course 02</strong><small>Review Course 01</small></article><article><b>DAY 03</b><strong>Build Course 03</strong><small>Review Course 02</small></article><div className="timeline-gap" aria-hidden="true">•••</div><article className="day-final"><b>DAY 29</b><strong>Build Course 29</strong><small>Core curriculum complete</small></article></div></div>
-        <aside className="prod-outcomes" aria-label="Production outcomes"><span>THE OUTCOME</span><div className="outcome-grid"><div><strong>29</strong><small>courses completed</small></div><div><strong>1</strong><small>month</small></div><div><strong>SME + CESAR</strong><small>owned accuracy + final decisions</small></div><div><strong>AI</strong><small>accelerated production</small></div></div></aside>
+        <aside className="prod-outcomes" aria-label="Production outcomes"><span>THE OUTCOME</span><div className="outcome-grid"><div><strong>29</strong><small>courses completed</small></div><div><strong>1</strong><small>month</small></div><div><strong>SME + I (CESAR)</strong><small>owned accuracy + final decisions</small></div><div><strong>AI</strong><small>accelerated production</small></div></div></aside>
       </div>}
       <div className="prod-governance"><b>Human judgment stayed in control.</b><span>Speed came from a better workflow—not from skipping review, correction, or approval.</span></div>
     </section>
