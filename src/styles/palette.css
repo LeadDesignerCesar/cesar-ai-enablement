@@ -62,7 +62,7 @@
 .choice-grid button:hover{border-color:var(--green)!important;background:var(--green-soft)!important}
 .choice-grid button.selected{background:var(--green)!important;border:2px solid var(--green)!important;color:#fff!important;box-shadow:0 0 0 3px rgba(154,106,22,.16)!important}
 .choice-grid button.selected strong{color:#fff!important}
-.choice-grid button.selected>span{border-color:var(--gold)!important;color:var(--gold)!important;background:rgba(255,255,255,.04)!important}
+.choice-grid button.selected>span{border-color:#fff!important;color:#fff!important;background:transparent!important}
 .choice-grid button.selected>b{color:var(--gold)!important}
 .choice-grid button.selected:after{background:var(--gold)!important;color:#fff!important}
 .feedback{border-left-color:var(--gold)!important;background:var(--gold-soft)!important}
