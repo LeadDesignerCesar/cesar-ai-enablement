@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import ChallengeLab from './components/challenge/ChallengeLab'
 import CaseStudyCard from './components/case-studies/CaseStudyCard'
-import RepresentativePreview from './components/case-studies/RepresentativePreview'
+import InteractiveRepresentativePreview from './components/case-studies/InteractiveRepresentativePreview'
 import { about, caseStudies, method, site } from './data/portfolioData'
 import headshot from './assets/cesar-headshot.webp'
 
@@ -70,7 +70,7 @@ function CaseDetail({ study, onBack }: { study: (typeof caseStudies)[number]; on
     <section className="case-view screen-enter" aria-labelledby="case-heading">
       <button className="back-link case-back" type="button" onClick={onBack}><span aria-hidden="true">←</span> BACK TO PROJECTS</button>
       <div className="case-hero"><div><div className="view-eyebrow">{study.eyebrow}</div><h1 id="case-heading">{study.title}</h1><span className="status-pill">{study.status}</span></div><div className="case-hero-metric"><strong>{study.metrics[0].value}</strong><span>{study.metrics[0].label}</span></div></div>
-      <div className="case-demo-stage"><div className="case-demo-copy"><span>INTERACTIVE PROOF</span><h2>Try it.</h2><p>Click through the example to see the intervention in action.</p></div><RepresentativePreview kind={study.slug} /></div>
+      <div className="case-demo-stage"><div className="case-demo-hint"><span>INTERACTIVE EXAMPLE</span><strong>Click the controls below to explore it.</strong><b aria-hidden="true">↓</b></div><InteractiveRepresentativePreview kind={study.slug} /></div>
       <div className="case-story-toggle"><div><span>HOW IT WORKED</span><strong>Want the thinking behind the example?</strong></div><button className="button ghost" type="button" onClick={() => setShowStory((value) => !value)} aria-expanded={showStory}>{showStory ? 'HIDE DETAILS ↑' : 'SHOW THE APPROACH ↓'}</button></div>
       {showStory && <><div className="story-line" aria-label="Case study stages">{sections.map(([label], index) => <span key={label}><b>{String(index + 1).padStart(2, '0')}</b>{label}</span>)}</div><div className="story-grid">{sections.map(([label, copy], index) => <article key={label} className="story-card"><span>{String(index + 1).padStart(2, '0')} / {label}</span><p>{copy}</p></article>)}</div></>}
       <section className="impact-panel" aria-labelledby="impact-heading"><div><span>IMPACT</span><h2 id="impact-heading">What changed.</h2>{study.note && <p>{study.note}</p>}</div><div className="impact-metrics">{study.metrics.map((metric) => <div key={`${metric.value}-${metric.label}`}><strong>{metric.value}</strong><span>{metric.label}</span></div>)}</div></section>
