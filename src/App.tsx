@@ -34,7 +34,9 @@ export default function App() {
     if (typeof window === 'undefined') return []
     try {
       const saved = window.localStorage.getItem(LEADERBOARD_KEY)
-      return saved ? JSON.parse(saved) as LeaderboardEntry[] : []
+      if (!saved) return []
+      const parsed = JSON.parse(saved) as LeaderboardEntry[]
+      return parsed.map((entry) => entry.label === 'L&D Lead' ? { ...entry, label: 'Director of Education' } : entry)
     } catch {
       return []
     }
@@ -75,11 +77,16 @@ export default function App() {
     const seeded = [
       { label: 'Recruiter', score: score + 30 },
       { label: 'Private Company', score: Math.max(0, score - 20) },
-      { label: 'L&D Lead', score: Math.max(0, score - 50) },
+      { label: 'Director of Education', score: Math.max(0, score - 50) },
     ]
     setLeaderboard(seeded)
     window.localStorage.setItem(LEADERBOARD_KEY, JSON.stringify(seeded))
   }, [view, score, leaderboard.length])
+
+  useEffect(() => {
+    if (!leaderboard.length) return
+    window.localStorage.setItem(LEADERBOARD_KEY, JSON.stringify(leaderboard))
+  }, [leaderboard])
 
   const rankedLeaderboard = useMemo(() => {
     if (!leaderboard.length) return []
@@ -105,9 +112,9 @@ export default function App() {
           <section className="home-view screen-enter" aria-labelledby="home-heading">
             <div className="hero-copy">
               <div className="eyebrow">AI ADOPTION & ENABLEMENT</div>
-              <h1 id="home-heading">I turn <span className="hero-accent">AI</span> into a way people actually work.</h1>
+              <h1 id="home-heading">I make <span className="hero-accent">AI</span> useful at work.</h1>
               <p className="hero-subhead">Find the friction. Redesign the workflow. Make adoption stick.</p>
-              <p className="hero-statement">I find high-friction work, redesign the workflow with AI, and build the learning, practice, and support that gets people to use it.</p>
+              <p className="hero-statement">I build the learning, practice, and support that turns new AI workflows into everyday behavior.</p>
               <div className="hero-actions"><button className="button primary hero-primary" type="button" onClick={() => go('work')}>SEE THE WORK <span aria-hidden="true">→</span></button><button className="button text-button" type="button" onClick={() => go('challenge')}>TRY THE METHOD</button></div>
               <div className="proof-rail" aria-label="Selected proof"><div><strong>29 courses / month</strong><span>AI-ENABLED PRODUCTION WORKFLOW</span></div><div><strong>10% lower turnover</strong><span>LEARNING TIED TO BUSINESS OUTCOME</span></div><div><strong>Live adoption tools</strong><span>BUILT AROUND REAL MOMENTS OF WORK</span></div></div>
             </div>
