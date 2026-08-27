@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import ChallengeLab from './components/challenge/ChallengeLab'
 import CaseStudyCard from './components/case-studies/CaseStudyCard'
+import RepresentativePreview from './components/case-studies/RepresentativePreview'
 import { about, caseStudies, method, proofCards, site } from './data/portfolioData'
 import headshot from './assets/cesar-headshot.webp'
 
@@ -38,6 +39,7 @@ export default function App() {
               <div className="eyebrow">CESAR RAMOS — AI ENABLEMENT LAB</div>
               <p className="hero-kicker">AI enablement is a behavior-change problem.</p>
               <h1 id="home-heading">Don’t read my portfolio.</h1>
+              <p className="hero-try">Try it.</p>
               <p className="hero-subhead">Find the friction. Build the solution. Make adoption stick.</p>
               <p className="hero-statement">{site.statement}</p>
               <div className="hero-actions">
@@ -52,12 +54,12 @@ export default function App() {
             </div>
 
             <div className="hero-visual" aria-label="A mission path representing Cesar's AI enablement method">
-              <div className="portrait-halo" />
+              <div className="mission-map" aria-hidden="true">
+                <span className="map-pin">●</span><span className="map-line line-one"/><span className="map-line line-two"/><span className="map-line line-three"/><span className="map-flag">⚑</span>
+              </div>
               <div className="portrait-frame">
                 <img src={headshot} alt="Professional headshot of Cesar Ramos" />
               </div>
-              <div className="floating-card card-one"><span>01</span><strong>FIND THE FRICTION</strong></div>
-              <div className="floating-card card-two"><span>04</span><strong>PROVE THE IMPACT</strong></div>
               <div className="role-chip"><strong>{site.name}</strong><span>{site.title}</span></div>
             </div>
 
@@ -74,8 +76,8 @@ export default function App() {
             <div className="view-eyebrow">SELECTED WORK / 04</div>
             <div className="work-hero">
               <div>
-                <h1 id="work-heading">Proof, not promises.</h1>
-                <p>Four projects. Four different barriers to performance. Same method: find the friction, change the experience, measure what moves.</p>
+                <h1 id="work-heading">Don’t take my word for it.</h1>
+                <p>Open a project and inspect the experience. The screens below are representative recreations—not employer production UI—so you can see how I think without exposing internal branding or systems.</p>
               </div>
               <div className="verified-punch"><strong>10%</strong><span>LOWER POOL-SIDE TURNOVER<br />IN THREE MONTHS</span></div>
             </div>
@@ -128,6 +130,12 @@ function CaseDetail({ study, onBack }: { study: (typeof caseStudies)[number]; on
         </div>
         <div className="case-hero-metric"><strong>{study.metrics[0].value}</strong><span>{study.metrics[0].label}</span></div>
       </div>
+
+      <div className="case-demo-stage">
+        <div className="case-demo-copy"><span>SHOW, DON’T TELL</span><h2>A representative recreation of the experience.</h2><p>This is intentionally not a screenshot of an employer production system. It recreates the interaction and design thinking without carrying over company branding, private data, or exact UI.</p></div>
+        <RepresentativePreview kind={study.slug} />
+      </div>
+
       <div className="story-line" aria-label="Case study stages">
         {sections.map(([label], index) => <span key={label}><b>{String(index + 1).padStart(2, '0')}</b>{label}</span>)}
       </div>
@@ -143,9 +151,6 @@ function CaseDetail({ study, onBack }: { study: (typeof caseStudies)[number]; on
         <div><span>06 / IMPACT</span><h2 id="impact-heading">What moved.</h2>{study.note && <p>{study.note}</p>}</div>
         <div className="impact-metrics">{study.metrics.map((metric) => <div key={`${metric.value}-${metric.label}`}><strong>{metric.value}</strong><span>{metric.label}</span></div>)}</div>
       </section>
-      {study.slug === 'event-app' && <div className="experience-demo phone-demo"><div className="phone"><div className="phone-notch"/><div className="phone-screen"><span>EVENT APP</span><strong>LIVE PARTICIPATION</strong><div className="demo-list"><i>01</i><b>Leaderboard</b><i>02</i><b>Photo uploads</b><i>03</i><b>Executive Q&A</b></div></div></div><p>Built to make participation visible, simple, and immediate.</p></div>}
-      {study.slug === 'adaptive-quiz' && <div className="experience-demo"><span className="demo-label">MICRO DEMO</span><h3>Wrong answer?</h3><p>The next step changes. Feedback identifies the misconception, then practice targets the weak area instead of restarting the same generic path.</p><div className="branch-demo"><span>ANSWER</span><b>→</b><span>MISCONCEPTION</span><b>→</b><span>TARGETED PRACTICE</span></div></div>}
-      {study.slug === 'ai-coaching' && <div className="experience-demo"><span className="demo-label">PRACTICE LOOP</span><div className="branch-demo"><span>TRY</span><b>→</b><span>FEEDBACK</span><b>→</b><span>RETRY</span><b>→</b><span>REFLECT</span></div><p>AI supports rehearsal. Human judgment still owns the real conversation.</p></div>}
       <div className="case-footer-actions"><button className="button ghost" type="button" onClick={onBack}>SEE ANOTHER PROJECT</button><a className="button primary" href="mailto:caramos0918@gmail.com">TALK WITH CESAR</a></div>
     </section>
   )
