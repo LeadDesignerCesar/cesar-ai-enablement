@@ -12,7 +12,8 @@ const cardCopy = [
 export default function CaseStudyCard({ study, index, onOpen }: { study: CaseStudy; index: number; onOpen: () => void }) {
   const copy = cardCopy[index]
   return (
-    <button className={`project-card project-${index + 1}`} type="button" onClick={onOpen} aria-label={`Open ${study.title} case study`}>
+    <button className={`project-card project-${index + 1}`} type="button" onClick={onOpen} aria-label={`Open ${copy.label} interactive case study`}>
+      <span className="project-mobile-label"><span className="project-mobile-number">0{index + 1}</span><strong>{copy.label}</strong><span className="project-mobile-arrow" aria-hidden="true">→</span></span>
       <div className="project-top"><span className="project-number">0{index + 1}</span><span>{copy.label}</span></div>
       <div className="project-card-content"><div className="project-intro"><div><h2>{copy.headline}</h2><p className="project-summary">{copy.body}</p></div><span className="project-icon" aria-hidden="true">{copy.icon}</span></div><div className="project-facts">{copy.facts.map(([label,value]) => <div key={label}><span>{label}</span><strong>{value}</strong></div>)}</div></div>
       <span className="project-open">{copy.cta} <b>→</b></span>
