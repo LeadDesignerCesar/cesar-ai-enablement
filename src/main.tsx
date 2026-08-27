@@ -10,6 +10,7 @@ import './styles/hiring.css'
 import './styles/work.css'
 import './styles/typography.css'
 import './styles/case-progressive.css'
+import './styles/interactive-proof.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
