@@ -8,7 +8,7 @@
   --gold-soft:#f7f0df;
 }
 
-/* Home: remove the decorative route/flag and let the AI idea carry the emphasis. */
+/* Home: remove decorative route/flag and let the AI idea carry the emphasis. */
 .mission-map{display:none!important}
 .hero-copy h1 .hero-accent{color:var(--green)}
 .eyebrow,.view-eyebrow,.case-demo-copy>span,.result-kicker{color:var(--green)!important}
@@ -28,6 +28,11 @@
 .project-open{color:var(--green)!important}
 .project-card:hover{border-color:var(--green)!important}
 
+/* Proof page gets its own clear invitation into the lab. */
+.view-work .work-view{padding-top:30px}
+.page-lab-cta{background:var(--gold)!important;border-color:var(--gold)!important;color:#fff!important;box-shadow:0 7px 18px rgba(154,106,22,.16)}
+.page-lab-cta:hover{background:#7d5511!important;border-color:#7d5511!important;color:#fff!important}
+
 /* About + navigation */
 .about-copy .view-eyebrow{color:var(--green)!important}
 .about-actions .button.primary{background:var(--green)!important;border-color:var(--green)!important}
@@ -38,4 +43,15 @@
 
 @media(max-width:700px){
   .hero-copy h1 .hero-accent{color:var(--green)}
+
+  /* On a phone the portrait adds length but no new information; About owns the photo. */
+  .view-home .home-view{grid-template-columns:1fr!important;grid-template-rows:auto auto!important;min-height:calc(100vh - 78px);padding-top:30px!important;gap:24px!important}
+  .view-home .hero-visual{display:none!important}
+  .view-home .hero-copy{max-width:none!important;width:100%}
+  .view-home .method-ticker{grid-column:1!important}
+  .view-home .proof-rail{margin-top:30px!important}
+
+  .view-work .work-view{padding-top:18px}
+  .view-work .page-nav-top{margin-bottom:22px}
+  .page-lab-cta{font-size:.59rem!important;padding-inline:12px!important}
 }
