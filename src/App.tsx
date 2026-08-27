@@ -40,7 +40,7 @@ export default function App() {
               <p className="hero-kicker">AI enablement is a behavior-change problem.</p>
               <h1 id="home-heading">Don’t read my portfolio.</h1>
               <p className="hero-try">Try it.</p>
-              <p className="hero-subhead">Find the friction. Build the solution. Make adoption stick.</p>
+              <p className="hero-subhead">Find the friction. Redesign the work. Make adoption stick.</p>
               <p className="hero-statement">{site.statement}</p>
               <div className="hero-actions">
                 <button className="button primary hero-primary" type="button" onClick={() => go('challenge')}>START THE 3-MINUTE CHALLENGE <span aria-hidden="true">→</span></button>
@@ -76,8 +76,8 @@ export default function App() {
             <div className="view-eyebrow">SELECTED WORK / 04</div>
             <div className="work-hero">
               <div>
-                <h1 id="work-heading">Don’t take my word for it.</h1>
-                <p>Open a project and inspect the experience. The screens below are representative recreations—not employer production UI—so you can see how I think without exposing internal branding or systems.</p>
+                <h1 id="work-heading">See how I turn AI into behavior change.</h1>
+                <p>Four business problems. Four different interventions. The same method each time: identify the friction, redesign the workflow or learning experience, help people adopt the change, and measure what moves.</p>
               </div>
               <div className="verified-punch"><strong>10%</strong><span>LOWER POOL-SIDE TURNOVER<br />IN THREE MONTHS</span></div>
             </div>
@@ -132,7 +132,7 @@ function CaseDetail({ study, onBack }: { study: (typeof caseStudies)[number]; on
       </div>
 
       <div className="case-demo-stage">
-        <div className="case-demo-copy"><span>SHOW, DON’T TELL</span><h2>A representative recreation of the experience.</h2><p>This is intentionally not a screenshot of an employer production system. It recreates the interaction and design thinking without carrying over company branding, private data, or exact UI.</p></div>
+        <div className="case-demo-copy"><span>SHOW, DON’T TELL</span><h2>See the intervention, not just the claim.</h2><p>Each recreation demonstrates the workflow, decision, or learning experience I designed while keeping employer branding, private data, and production systems out of the portfolio.</p></div>
         <RepresentativePreview kind={study.slug} />
       </div>
 
@@ -148,7 +148,7 @@ function CaseDetail({ study, onBack }: { study: (typeof caseStudies)[number]; on
         ))}
       </div>
       <section className="impact-panel" aria-labelledby="impact-heading">
-        <div><span>06 / IMPACT</span><h2 id="impact-heading">What moved.</h2>{study.note && <p>{study.note}</p>}</div>
+        <div><span>06 / IMPACT</span><h2 id="impact-heading">What changed.</h2>{study.note && <p>{study.note}</p>}</div>
         <div className="impact-metrics">{study.metrics.map((metric) => <div key={`${metric.value}-${metric.label}`}><strong>{metric.value}</strong><span>{metric.label}</span></div>)}</div>
       </section>
       <div className="case-footer-actions"><button className="button ghost" type="button" onClick={onBack}>SEE ANOTHER PROJECT</button><a className="button primary" href="mailto:caramos0918@gmail.com">TALK WITH CESAR</a></div>
