@@ -1,0 +1,41 @@
+/* Final palette pass: restrained forest green + warm gold. */
+:root{
+  --accent-primary:#1f5d4f;
+  --accent-secondary:#9a6a16;
+  --green:#1f5d4f;
+  --green-soft:#eaf2ee;
+  --gold:#9a6a16;
+  --gold-soft:#f7f0df;
+}
+
+/* Home: remove the decorative route/flag and let the AI idea carry the emphasis. */
+.mission-map{display:none!important}
+.hero-copy h1 .hero-accent{color:var(--green)}
+.eyebrow,.view-eyebrow,.case-demo-copy>span,.result-kicker{color:var(--green)!important}
+.button.primary,.hero-primary{background:var(--green)!important;border-color:var(--green)!important;color:#fff!important}
+.button.primary:hover,.hero-primary:hover{background:#174a3f!important;border-color:#174a3f!important}
+.role-chip{background:#111318!important;color:#fff!important}
+.role-chip span{color:#e8e3d8!important}
+.method-ticker b{color:var(--gold)!important}
+
+/* Use gold as a small signal, never a competing block of color. */
+.proof-rail div:nth-child(2) strong,.case-hero-metric strong{color:var(--gold)!important}
+.status-pill{color:var(--green)!important;border-color:rgba(31,93,79,.24)!important;background:rgba(31,93,79,.06)!important}
+
+/* Work cards: one visual language. */
+.project-number,.project-mobile-number{background:var(--green)!important}
+.project-icon,.project-mobile-arrow{background:var(--green-soft)!important;color:var(--green)!important}
+.project-open{color:var(--green)!important}
+.project-card:hover{border-color:var(--green)!important}
+
+/* About + navigation */
+.about-copy .view-eyebrow{color:var(--green)!important}
+.about-actions .button.primary{background:var(--green)!important;border-color:var(--green)!important}
+.page-back:hover{border-color:var(--green)!important;background:#f3f8f5!important}
+
+/* Score belongs to the same system. */
+.score-chip strong{color:var(--green)!important}
+
+@media(max-width:700px){
+  .hero-copy h1 .hero-accent{color:var(--green)}
+}
