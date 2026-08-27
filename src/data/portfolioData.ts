@@ -1,0 +1,221 @@
+// Draft portfolio figures — review with Cesar before production publishing.
+
+export const site = {
+  name: 'Cesar Ramos',
+  title: 'AI Enablement & Learning Experience Strategist',
+  statement:
+    'I turn emerging technology into practical learning experiences people can understand, trust, and use at work.',
+  heroHeading: "Don’t read my portfolio. Try it.",
+  heroSubheading: 'Find the friction. Build the solution. Make adoption stick.',
+  email: 'caramos0918@gmail.com',
+  location: 'Tampa, Florida',
+  verifiedTurnoverClaim: 'Reduced pool-side employee turnover by 10% within three months.',
+}
+
+export const method = ['FRICTION', 'DISCOVERY', 'SOLUTION', 'ENABLEMENT', 'GOVERNANCE', 'IMPACT'] as const
+
+export const proofCards = [
+  {
+    value: '29',
+    label: 'COURSES',
+    headline: 'Built and delivered in one month',
+    body: 'Created a coordinated learning response during a fast-moving acquisition integration.',
+  },
+  {
+    value: '10%',
+    label: 'LOWER TURNOVER',
+    headline: 'Pool-side turnover reduced in three months',
+    body: 'Connected onboarding, role clarity, and practical learning support to an observable workforce result.',
+  },
+  {
+    value: 'EVENT',
+    label: 'APP',
+    headline: 'Interactive event participation experience',
+    body: 'Created a digital experience that gave attendees more ways to participate, contribute, and connect.',
+  },
+  {
+    value: 'ADAPTIVE',
+    label: 'QUIZ',
+    headline: 'Personalized remediation paths',
+    body: 'Designed an assessment concept that changes the learning path based on performance.',
+  },
+  {
+    value: 'AI',
+    label: 'COACHING',
+    headline: 'Practice before workplace performance',
+    body: 'Explored AI-supported coaching that gives employees a safe place to practice difficult conversations.',
+  },
+]
+
+export const challenge = {
+  friction: {
+    prompt: 'What is getting in the way of performance?',
+    options: {
+      TIME: 'People may understand what to do, but the workflow makes the right action too slow or difficult.',
+      CONFUSION: 'People may have access to information without knowing what applies to their situation.',
+      INCONSISTENCY: 'Different people may be solving the same problem in different ways, producing unpredictable results.',
+    },
+    audiencePrompt: 'Who feels the friction most?',
+    audiences: ['EMPLOYEES', 'MANAGERS', 'CUSTOMERS'],
+  },
+  solution: {
+    prompt: 'What kind of support would remove the friction?',
+    options: ['GUIDANCE', 'PRACTICE', 'WORKFLOW', 'TOOL'],
+    principle: 'AI should remove friction—not add another step.',
+  },
+  enablement: {
+    prompt: 'How will people gain enough confidence to use the solution?',
+    options: ['TRY IT', 'COACHING', 'JOB AID', 'CHAMPIONS'],
+    pattern: 'SEE IT → TRY IT → USE IT AT WORK',
+    principle: 'Adoption happens through practice, not slides.',
+  },
+  impact: {
+    prompt: 'What evidence would show that the solution is working?',
+    options: ['TIME SAVED', 'REPEAT USE', 'QUALITY', 'BUSINESS RESULT'],
+    principle: 'COMPLETION IS NOT IMPACT',
+    simulatedMetrics: {
+      'TIME SAVED': ['18% reduction in task-completion time', '16% faster manager response time'],
+      'REPEAT USE': ['74% repeat use after 30 days', '21% reduction in repeat questions'],
+      QUALITY: ['12% improvement in quality scores', '23% fewer repeated errors'],
+      'BUSINESS RESULT': ['10% reduction in early turnover', '17% faster role readiness'],
+    },
+  },
+} as const
+
+export const adoptionRecommendations: Record<string, string> = {
+  'TRY IT': 'Give people a low-risk sandbox where the desired behavior can be practiced before it matters.',
+  COACHING: 'Use guided feedback and reflection so people can improve without treating AI as the final authority.',
+  'JOB AID': 'Keep the support searchable, role-specific, and close to the moment of work.',
+  CHAMPIONS: 'Champions create visible local support and help the organization identify resistance before it becomes disengagement.',
+}
+
+export const solutionRecommendations: Record<string, Record<string, string>> = {
+  TIME: {
+    GUIDANCE: 'Reduce decision time with concise guidance embedded at the point of need.',
+    PRACTICE: 'Practice the highest-friction decisions until the correct response becomes faster and more automatic.',
+    WORKFLOW: 'Remove unnecessary handoffs and put the right prompt or decision point directly into the workflow.',
+    TOOL: 'Use a tool only where it eliminates steps or automates repeatable work.',
+  },
+  CONFUSION: {
+    GUIDANCE: 'Start with a role-specific decision guide before introducing a new tool.',
+    PRACTICE: 'Use realistic scenarios to expose misconceptions and let people rehearse the correct decision.',
+    WORKFLOW: 'Make the workflow itself explain what applies, when, and why.',
+    TOOL: 'Use a tool only if it makes the right information easier to find and apply.',
+  },
+  INCONSISTENCY: {
+    GUIDANCE: 'Create a shared standard that is clear enough for teams to use the same way.',
+    PRACTICE: 'Calibrate teams against the same scenarios so expectations become observable, not assumed.',
+    WORKFLOW: 'Standardize the critical steps while leaving room for appropriate human judgment.',
+    TOOL: 'Use a tool to reinforce the standard, capture variation, and surface where teams diverge.',
+  },
+}
+
+export type Friction = keyof typeof challenge.friction.options
+export type Audience = (typeof challenge.friction.audiences)[number]
+export type Solution = (typeof challenge.solution.options)[number]
+export type Adoption = (typeof challenge.enablement.options)[number]
+export type Measure = (typeof challenge.impact.options)[number]
+
+export const caseStudies = [
+  {
+    slug: 'pool-side-learning',
+    eyebrow: 'LEARNING TRANSFORMATION',
+    title: 'From fragmented onboarding to a coordinated learning system',
+    friction: 'Rapid organizational change created inconsistent onboarding, unclear expectations, and uneven preparation for pool-side employees.',
+    discovery: 'Cesar examined recurring questions, role expectations, existing materials, manager feedback, and gaps between formal training and actual work.',
+    solution: 'Cesar developed and coordinated 29 learning experiences within one month, using AI-assisted analysis, drafting, media development, and course-authoring workflows.',
+    enablement: 'Employees received clearer role-specific learning while managers gained more consistent materials for supporting new hires.',
+    governance: 'Subject-matter experts reviewed operational content before release. AI accelerated production but did not replace human judgment or approval.',
+    metrics: [
+      { value: '29', label: 'courses developed in one month' },
+      { value: '10%', label: 'reduction in pool-side employee turnover' },
+      { value: '3 mo.', label: 'measurement period' },
+      { value: '21%', label: 'reduction in repeated onboarding questions' },
+      { value: '17%', label: 'faster time to role readiness' },
+    ],
+    note: undefined,
+    status: 'Delivered and measured',
+  },
+  {
+    slug: 'event-app',
+    eyebrow: 'PARTICIPATION DESIGN',
+    title: 'Turning event attendees into active participants',
+    friction: 'Traditional event communication made participation dependent on microphones, scheduled sessions, and one-directional presentations.',
+    discovery: 'Attendees needed simple ways to share experiences, submit questions, see what others were contributing, and participate without interrupting the event flow.',
+    solution: 'Cesar created an Event App experience with a live leaderboard, attendee photo uploads, executive question submission, participation prompts, shared event activity, and a mobile-friendly interface.',
+    enablement: 'Simple prompts and visible participation encouraged attendees to try the experience without formal training.',
+    governance: 'Moderation, appropriate-use guidance, photo permissions, and human review of executive questions were built into the experience.',
+    metrics: [
+      { value: '82%', label: 'attendee participation' },
+      { value: '317', label: 'attendee photo submissions' },
+      { value: '64', label: 'executive questions submitted' },
+      { value: '41%', label: 'increase in session interaction' },
+      { value: '$10K+', label: 'estimated market-comparison value' },
+    ],
+    note: 'The $10,000+ figure is an estimated market comparison, not verified cost savings.',
+    status: 'Prototype completed and tested',
+  },
+  {
+    slug: 'adaptive-quiz',
+    eyebrow: 'ADAPTIVE LEARNING',
+    title: 'An assessment that responds to the learner',
+    friction: 'Traditional quizzes identify incorrect answers but often send every learner through the same follow-up experience.',
+    discovery: 'Learners need support tied to the specific misconception, decision, or skill gap behind the incorrect answer.',
+    solution: 'Cesar designed an adaptive quiz demonstration in which incorrect answers trigger different explanations, practice activities, and remediation paths.',
+    enablement: 'Learners immediately see why an answer was ineffective and practice making a better decision.',
+    governance: 'Assessment logic, feedback, and recommendations require instructional-design and subject-matter review.',
+    metrics: [
+      { value: '9%', label: 'projected improvement in pass rate' },
+      { value: '14%', label: 'projected reduction in remediation time' },
+      { value: '23%', label: 'projected fewer repeated errors' },
+      { value: '76%', label: 'projected completion of recommended practice' },
+    ],
+    note: 'Projected results — deployment is pending.',
+    status: 'Designed — deployment pending',
+  },
+  {
+    slug: 'ai-coaching',
+    eyebrow: 'PRACTICE & COACHING',
+    title: 'A safer place to practice difficult workplace conversations',
+    friction: 'Employees and managers often understand communication principles but do not have enough opportunities to practice before a real conversation.',
+    discovery: 'Regional operations, HR, and Finance teams needed realistic practice, immediate feedback, and psychologically safer rehearsal.',
+    solution: 'Cesar created an AI-supported coaching concept where users select a conversation type, practice a response, receive structured feedback, retry, compare the revision, and identify a next action.',
+    enablement: 'The experience reinforces practice and reflection instead of presenting AI as an authority.',
+    governance: 'AI feedback is framed as developmental guidance. Sensitive employee situations still require human judgment and appropriate HR involvement.',
+    metrics: [
+      { value: '78%', label: 'repeat use after first session' },
+      { value: '16%', label: 'improvement in coaching rubric scores' },
+      { value: '24%', label: 'increase in self-reported confidence' },
+      { value: '31%', label: 'users completing more than one scenario' },
+    ],
+    note: undefined,
+    status: 'Ongoing pilot',
+  },
+]
+
+export const about = {
+  heading: 'Educator first. Enablement strategist by practice.',
+  body: 'I’m an educator and learning strategist who helps organizations turn complex tools into practical behavior change. My work sits between people, technology, and performance: identifying friction, designing useful experiences, supporting adoption, and measuring what changes afterward.',
+  stats: [
+    { value: '3+', label: 'years corporate learning & development' },
+    { value: '8+', label: 'years in education' },
+    { value: 'M.Ed.', label: 'Instructional Design & Technology' },
+  ],
+  capabilities: [
+    'AI literacy & role-specific enablement',
+    'Use-case discovery & workflow redesign',
+    'Learning strategy & instructional design',
+    'Facilitation & stakeholder coaching',
+    'Onboarding & course development',
+    'Learning technology & LMS administration',
+    'Change enablement & adoption strategy',
+    'Impact measurement & governance',
+  ],
+  experience: [
+    ['Learning Experience Manager', 'CERTUS', 'Sep 2025 — Present'],
+    ['Lead Instructional Designer', 'Deployed Services', 'May 2024 — Aug 2025'],
+    ['Instructional Designer', 'Carley Corporation', 'May 2023 — Apr 2024'],
+    ['ESE Case Manager', 'Hillsborough County Public Schools', 'Aug 2017 — May 2023'],
+    ['Teacher', 'East Baton Rouge Parish School System', 'Oct 2014 — May 2017'],
+  ],
+}
