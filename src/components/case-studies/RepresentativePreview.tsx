@@ -1,6 +1,4 @@
-type PreviewKind = 'pool-side-learning' | 'event-app' | 'adaptive-quiz' | 'ai-coaching'
-
-export default function RepresentativePreview({ kind, compact = false }: { kind: PreviewKind; compact?: boolean }) {
+export default function RepresentativePreview({ kind, compact = false }: { kind: string; compact?: boolean }) {
   return (
     <div className={`rep-preview rep-${kind} ${compact ? 'compact' : ''}`} aria-label="Representative portfolio demo, not production UI">
       <div className="rep-caption">REPRESENTATIVE DEMO — NOT PRODUCTION UI</div>
