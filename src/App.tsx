@@ -28,6 +28,7 @@ export default function App() {
   })
   const [scoreBump, setScoreBump] = useState(false)
   const [milestoneMessage, setMilestoneMessage] = useState<string | null>(null)
+  const [aboutScoreMoment, setAboutScoreMoment] = useState(false)
   const selectedCase = view.startsWith('case:') ? caseStudies.find((study) => study.slug === view.slice(5)) : undefined
   const go = (next: View) => { setView(next); window.scrollTo({ top: 0, behavior: 'smooth' }) }
 
@@ -59,11 +60,23 @@ export default function App() {
     return () => window.clearTimeout(timer)
   }, [milestoneMessage])
 
+  useEffect(() => {
+    if (view !== 'about') {
+      setAboutScoreMoment(false)
+      return
+    }
+    setAboutScoreMoment(true)
+    const timer = window.setTimeout(() => setAboutScoreMoment(false), 3600)
+    return () => window.clearTimeout(timer)
+  }, [view])
+
+  const scoreMessage = milestoneMessage ?? (aboutScoreMoment ? 'You explored the lab. Now meet the person behind it.' : null)
+
   return (
     <div className={`app-shell view-${view.startsWith('case:') ? 'case' : view}`}>
       <a className="skip-link" href="#main">Skip to content</a>
-      <div className={`score-chip ${scoreBump ? 'score-bump' : ''} ${milestoneMessage ? 'score-milestone' : ''}`} aria-live="polite" aria-label={milestoneMessage ?? `Your score is ${score} points`}>
-        {milestoneMessage ? <span className="score-message">{milestoneMessage}</span> : <><span>YOUR SCORE</span><strong>{score.toLocaleString()}</strong></>}
+      <div className={`score-chip ${scoreBump ? 'score-bump' : ''} ${scoreMessage ? 'score-milestone' : ''} ${aboutScoreMoment && !milestoneMessage ? 'score-about' : ''}`} aria-live="polite" aria-label={scoreMessage ?? `Your score is ${score} points`}>
+        {scoreMessage ? <div className="score-moment"><strong>{score.toLocaleString()}</strong><span>{scoreMessage}</span></div> : <><span>YOUR SCORE</span><strong>{score.toLocaleString()}</strong></>}
       </div>
 
       {view !== 'work' && (
@@ -95,7 +108,12 @@ export default function App() {
 
         {selectedCase && <CaseDetail study={selectedCase} onBack={() => go('work')} />}
 
-        {view === 'about' && <section className="about-view screen-enter" aria-labelledby="about-heading"><div className="page-nav page-nav-top about-page-nav"><button className="page-back" type="button" onClick={() => go('work')}>← BACK TO PROOF</button><button className="page-next" type="button" onClick={() => go('home')}>HOME →</button></div><div className="about-photo"><img src={headshot} alt="Professional headshot of Cesar Ramos" /></div><div className="about-copy"><div className="view-eyebrow">ABOUT CESAR</div><h1 id="about-heading">{about.heading}</h1><p className="about-lede">{about.body}</p><div className="about-stats">{about.stats.map((stat) => <div key={stat.value}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}</div><div className="capability-cloud">{about.capabilities.map((item) => <span key={item}>{item}</span>)}</div><div className="about-actions"><a className="button primary" href={`${import.meta.env.BASE_URL}Cesar_Ramos_AI_Enablement_Resume.docx`} download>DOWNLOAD RÉSUMÉ</a><a className="button ghost" href="mailto:caramos0918@gmail.com">CONNECT WITH CESAR</a></div></div></section>}
+        {view === 'about' && <section className="about-view screen-enter" aria-labelledby="about-heading">
+          <div className="page-nav page-nav-top about-page-nav"><button className="page-back" type="button" onClick={() => go('work')}>← BACK TO PROOF</button><button className="page-next" type="button" onClick={() => go('home')}>HOME →</button></div>
+          <div className="about-mobile-intro" aria-hidden="true"><div className="about-mobile-photo"><img src={headshot} alt="" /></div><div className="about-mobile-copy"><span>ABOUT CESAR</span><strong>I work where people, technology, and performance meet.</strong></div></div>
+          <div className="about-photo"><img src={headshot} alt="Professional headshot of Cesar Ramos" /></div>
+          <div className="about-copy"><div className="view-eyebrow">ABOUT CESAR</div><h1 id="about-heading">{about.heading}</h1><p className="about-lede">{about.body}</p><div className="about-stats">{about.stats.map((stat) => <div key={stat.value}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}</div><div className="capability-cloud">{about.capabilities.map((item) => <span key={item}>{item}</span>)}</div><div className="about-actions"><a className="button primary" href={`${import.meta.env.BASE_URL}Cesar_Ramos_AI_Enablement_Resume.docx`} download>DOWNLOAD RÉSUMÉ</a><a className="button ghost" href="mailto:caramos0918@gmail.com">CONNECT WITH CESAR</a></div></div>
+        </section>}
       </main>
     </div>
   )
